@@ -1,0 +1,33 @@
+Subsystems and commands:
+
+Drive train
+Go forward
+Go backwards
+Turn left
+Turn right
+
+Shooter
+Shoot
+Not shoot
+
+Intake mechanism
+Suck things in
+Not do anything
+
+Climber
+Go up
+Go down
+See what height the bar is at?
+Claw closes around bar?
+
+Arm thing to spin the color wheel
+To extend
+To un-extend
+To see what color the thing is at
+To spin the color wheel
+To stop the color wheel from spinning
+
+Vison Targeting
+High goal
+Loading bays
+Color wheel?
