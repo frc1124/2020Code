@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -21,4 +23,7 @@ public final class Constants {
     public static final int LEFT_MASTER = 0;
     public static final int LEFT_SLAVE = 0;
 
+    public static HashMap<String, Integer> controller = new HashMap<String, Integer>();
+    public static void main()
+    controller.put("A", 0);
 }
