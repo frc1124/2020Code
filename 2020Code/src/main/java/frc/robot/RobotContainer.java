@@ -29,9 +29,12 @@ public class RobotContainer {
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, j);
 
 
+  public Command getTeleopDrive() {
+      return arcadeDrive;
+  }
 
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The contai ner for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
@@ -54,8 +57,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+  // public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
+  //   return m_autoCommand;
+  // }
 }
