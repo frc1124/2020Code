@@ -7,9 +7,12 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+
 
 /**
  * An example command that uses an example subsystem.
@@ -18,6 +21,8 @@ public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drive drive;
   private final Joystick j;
+
+  private final double throttle = 0;
 
   /**
    * Creates a new ExampleCommand.
@@ -39,7 +44,8 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.arcadeDrive(j.getX(), j.getY());
+    // j.getRawButton(Constants.);
+    drive.arcadeDrive(j.getX() * throttle, j.getY() * throttle);
   }
 
   // Called once the command ends or is interrupted.
