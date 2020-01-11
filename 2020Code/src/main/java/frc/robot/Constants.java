@@ -18,12 +18,25 @@ import java.util.HashMap;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //Drive Train Mapping
     public static final int RIGHT_MASTER = 0;
-    public static final int RIGHT_SLAVE = 0;
-    public static final int LEFT_MASTER = 0;
-    public static final int LEFT_SLAVE = 0;
+    public static final int RIGHT_SLAVE = 15;
+    public static final int LEFT_MASTER = 1;
+    public static final int LEFT_SLAVE = 14;
+
+    //Launcher Mapping
+    public static final int TOP_ROLLER = 3;
+    public static final int BOTTOM_ROLLER = 4; //This is for the shooter design
+
 
     public static final int ARCADE_STICK = 0;
     // public static HashMap<String, Integer> controller = new HashMap<String, Integer>();
     // controller.put("A", 0);
+
+    public JoystickButton[] jbuttons = [
+        new JoystickButton()
+
+
+    ];
+    
 }
