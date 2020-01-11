@@ -19,11 +19,18 @@ import java.util.HashMap;
  */
 public final class Constants {
     public static final int RIGHT_MASTER = 0;
-    public static final int RIGHT_SLAVE = 0;
-    public static final int LEFT_MASTER = 0;
-    public static final int LEFT_SLAVE = 0;
+    public static final int RIGHT_SLAVE = 1;
+    public static final int LEFT_MASTER = 15;
+    public static final int LEFT_SLAVE = 14;
 
     public static final int ARCADE_STICK = 0;
-    // public static HashMap<String, Integer> controller = new HashMap<String, Integer>();
-    // controller.put("A", 0);
+    
+    public static final double FWD_P = 0;
+    public static final double FWD_I = 0;
+    public static final double FWD_D = 0;
+
+    public static final double ROT_P = 0;
+    public static final double ROT_I = 0;
+    public static final double ROT_D = 0;
+
 }

@@ -7,10 +7,17 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.SerialPort; 
+
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
 
 
 
@@ -18,11 +25,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class ArcadeDrive extends CommandBase {
+
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
+  private PIDController fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
+  private PIDController rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
+
+  private AHRS navx = new AHRS(SerialPort.Port.kMXP); 
+
   private final Drive drive;
   private final Joystick j;
 
-  private final double throttle = 0;
+  private final double throttle = 1;
 
   /**
    * Creates a new ExampleCommand.
@@ -45,12 +59,18 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     // j.getRawButton(Constants.);
-    drive.arcadeDrive(j.getX() * throttle, j.getY() * throttle);
+    // drive.arcadeDrive(j.getX() * throttle, j.getY() * throttle);
+
+    drive.arcadeDrive(
+      MathUtil.clamp(fwdPID.calculate(navx.getVelocityX(), j.getX()), -throttle, throttle),
+      MathUtil.clamp(rotPID.calculate(navx.getAngle(), j.getY()), -throttle, throttle)
+      );
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
   }
 
   // Returns true when the command should end.

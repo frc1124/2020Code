@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
+
 //For a more advanced odometry drive: https://docs.wpilib.org/en/latest/docs/software/examples-tutorials/trajectory-tutorial/creating-drive-subsystem.html
 import frc.robot.Constants;
 
@@ -15,8 +16,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive extends SubsystemBase {
   /**
-   * Creates a new DriveSubsystem.
-   * Uses ArcadeDrive
+   * Creates a new DriveSubsystem. Uses ArcadeDrive
    */
   /*  */
   private DifferentialDrive drive;
@@ -24,8 +24,10 @@ public class Drive extends SubsystemBase {
   private WPI_TalonSRX leftSlave;
   private WPI_TalonSRX rightMaster;
   private WPI_TalonSRX rightSlave;
-  public Drive() {
 
+
+  public Drive() {
+    
 
     // init the talons
     leftMaster = new WPI_TalonSRX(Constants.LEFT_MASTER);
@@ -42,6 +44,7 @@ public class Drive extends SubsystemBase {
 
   public void arcadeDrive(double fwd, double rot) {
     drive.arcadeDrive(fwd, rot);
+
   }
 
   @Override
