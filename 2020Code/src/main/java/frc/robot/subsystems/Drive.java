@@ -34,17 +34,18 @@ public class Drive extends SubsystemBase {
     rightMaster = new WPI_TalonSRX(Constants.RIGHT_MASTER);
     leftSlave = new WPI_TalonSRX(Constants.LEFT_SLAVE);
     rightSlave = new WPI_TalonSRX(Constants.RIGHT_SLAVE);
-
-    // assign slaves to master
     leftSlave.follow(leftMaster);
     rightSlave.follow(rightMaster);
+    leftSlave.setInverted(true);
+    leftMaster.setInverted(true);
+    
+    // // assign slaves to master
 
     drive = new DifferentialDrive(leftMaster, rightMaster);
   }
 
   public void arcadeDrive(double fwd, double rot) {
-    drive.arcadeDrive(fwd, rot);
-
+    drive.arcadeDrive(-1*fwd, rot);
   }
 
   @Override

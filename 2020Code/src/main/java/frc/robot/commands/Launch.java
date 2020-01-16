@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Launcher;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
@@ -23,7 +23,7 @@ public class Launch extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          j.getRawButton(Constants.)
+          j.getRawButton(Constants.LaunchButton)
           LaunchRoller.set(.75);
       }
     

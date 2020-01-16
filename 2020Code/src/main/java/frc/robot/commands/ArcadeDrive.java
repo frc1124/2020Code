@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
+import java.util.*;
 import edu.wpi.first.wpilibj.SerialPort; 
 
 import frc.robot.Constants;
@@ -36,7 +36,7 @@ public class ArcadeDrive extends CommandBase {
   private final Drive drive;
   private final Joystick j;
 
-  private final double throttle = 1;
+  private final double throttle = .75;
 
   /**
    * Creates a new ExampleCommand.
@@ -59,12 +59,13 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     // j.getRawButton(Constants.);
-    // drive.arcadeDrive(j.getX() * throttle, j.getY() * throttle);
+    drive.arcadeDrive(j.getY() * throttle, j.getX()* throttle);
+//NEED TO FIX THIS PID CODE --> MANUALLY CLAMP VALUES
+   /*drive.arcadeDrive(
+      Math.max(throttle, Math.min(-throttle), fwdPID.calculate(navx.getVelocityZ(), j.getY()), throttle), 
+      Math.max(throttle, Math.min(-throttle), rotPID.calculate(navx.getAngle(), j.getX()), throttle)
+      );*/
 
-    drive.arcadeDrive(
-      MathUtil.clamp(fwdPID.calculate(navx.getVelocityX(), j.getX()), -throttle, throttle),
-      MathUtil.clamp(rotPID.calculate(navx.getAngle(), j.getY()), -throttle, throttle)
-      );
   }
 
   // Called once the command ends or is interrupted.

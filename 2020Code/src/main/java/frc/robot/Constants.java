@@ -19,19 +19,21 @@ import java.util.HashMap;
  */
 public final class Constants {
     //Drive Train Mapping
-    public static final int RIGHT_MASTER = 0;
+    public static final int RIGHT_MASTER = 4;
 
-    public static final int RIGHT_SLAVE = 1;
-    public static final int LEFT_MASTER = 3;
-    public static final int LEFT_SLAVE = 14;
+    public static final int RIGHT_SLAVE = 2;
+    public static final int LEFT_MASTER = 1;
+    public static final int LEFT_SLAVE = 3;
 
     public static final int ARCADE_STICK = 0;
     
-    public static final double FWD_P = 0;
+    public static final double FWD_P = .01;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
 
     public static final double ROT_P = 0;
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
+
+    public static final double LaunchButton = 1;
 }
