@@ -1,0 +1,7 @@
+6 - raise elevator
+7 - lower elevator
+2 - intake
+trigger - shoot
+5 - spinner clockwise
+4 - spinner counter clockwise
+

@@ -7,18 +7,23 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Launcher extends SubsystemBase{
-    private WPI_TalonSRX LaunchRoller;
-
+    private WPI_TalonSRX launchRoller;
+    private final double THROTTLE = 1;
+    
     public Launcher(){
-        LaunchRoller = new WPI_TalonSRX(Constants.TOP_ROLLER);
+        launchRoller = new WPI_TalonSRX(Constants.TOP_ROLLER);
     }
     
-    public void Launch() {
-
+    public void run() {
+        launchRoller.set(THROTTLE);
     }
-}
-
-@Override 
-public void periodic(){
+    public void stop() {
+        launchRoller.set(0);
+    }
     
+    
+    @Override 
+    public void periodic(){
+        
+    }
 }
