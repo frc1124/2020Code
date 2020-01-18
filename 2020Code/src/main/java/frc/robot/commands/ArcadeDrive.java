@@ -6,8 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import java.util.*;
-import edu.wpi.first.wpilibj.SerialPort; 
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
@@ -36,13 +34,8 @@ public class ArcadeDrive extends CommandBase {
   private final Drive drive;
   private final Joystick j;
 
-  private final double throttle = .75;
+  private final double THROTTLE = .75;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
   public ArcadeDrive(Drive drive, Joystick j) {
     this.drive = drive;
     this.j = j;
@@ -61,16 +54,15 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // j.getRawButton(Constants.);
-    // drive.arcadeDrive(j.getY() * throttle, j.getX()* throttle);
-    //TODO: find getVelocity{X,Y,Z} and zero angle
-    double a = j.getX() - navx.getYaw()/180;
-    if (a < -1) a++;
-    drive.arcadeDrive(
-       MathUtil.clamp(fwdPID.calculate(navx.getVelocityY(), j.getY()), throttle, -throttle), 
-       MathUtil.clamp(rotPID.calculate(navx.getYaw()/180, j.getX()), throttle, -throttle)
-    );
 
+    // drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* THROTTLE);
+
+    double angle = j.getX() - navx.getYaw()/180;
+    if (angle < -1) angle++;
+    drive.arcadeDrive(
+       MathUtil.clamp(fwdPID.calculate(drive.getAvgVelocity(), j.getY()), THROTTLE, -THROTTLE), 
+       MathUtil.clamp(rotPID.calculate(angle, j.getX()), THROTTLE, -THROTTLE)
+    );
   }
 
   // Called once the command ends or is interrupted.

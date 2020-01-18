@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-//For a more advanced odometry drive: https://docs.wpilib.org/en/latest/docs/software/examples-tutorials/trajectory-tutorial/creating-drive-subsystem.html
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -48,10 +47,11 @@ public class Drive extends SubsystemBase {
         leftEncoder = new Encoder(Constants.LEFT_CHANNEL_A, Constants.LEFT_CHANNEL_B);
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
 
-        // TODO: FIND this value
-        leftEncoder.setDistancePerPulse(1);
-        leftEncoder.setDistancePerPulse(1);
+        // 8192 ticks per rev; 6 in diameter
+        leftEncoder.setDistancePerPulse(8192 * 2 * 6 * Math.PI);
+        leftEncoder.setDistancePerPulse(8192 * 2 * 6 * Math.PI);
 
+        // pid controllers
         fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
         rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
 
@@ -59,7 +59,7 @@ public class Drive extends SubsystemBase {
         leftSlave.follow(leftMaster);
         rightSlave.follow(rightMaster);
         
-        // navx
+        // navx init
         navx = new AHRS(SPI.Port.kMXP);
         
         drive = new DifferentialDrive(leftMaster, rightMaster);
@@ -67,11 +67,9 @@ public class Drive extends SubsystemBase {
     
     public void arcadeDrive(double fwd, double rot) {
         drive.arcadeDrive(fwd, rot);
-
     }
 
     public void resetEncoders() {
-
       leftEncoder.reset();
       rightEncoder.reset();
     }
@@ -81,6 +79,7 @@ public class Drive extends SubsystemBase {
     }
 
     public double getAvgVelocity() {
+      // inches per second
       return (leftEncoder.getRate() + rightEncoder.getRate()) / 2;
     }
 
@@ -88,6 +87,7 @@ public class Drive extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
     }
+
     public void drive(double distance, double angle) {
         angle -= navx.getYaw();
         if(angle < -180) angle += 360;
@@ -98,6 +98,7 @@ public class Drive extends SubsystemBase {
           rotPID.calculate(navx.getYaw(), angle)
         );
     }
+
     public void stop() {
       leftMaster.set(0);
       rightMaster.set(0);
