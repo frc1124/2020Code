@@ -63,11 +63,12 @@ public class ArcadeDrive extends CommandBase {
     // j.getRawButton(Constants.);
     // drive.arcadeDrive(j.getY() * throttle, j.getX()* throttle);
     //TODO: find getVelocity{X,Y,Z} and zero angle
-    navx.reset();
+    double a = j.getX() - navx.getYaw()/180;
+    if (a < -1) a++;
     drive.arcadeDrive(
        MathUtil.clamp(fwdPID.calculate(navx.getVelocityY(), j.getY()), throttle, -throttle), 
-       MathUtil.clamp(rotPID.calculate(navx.getAngle()/180, j.getX()), throttle, -throttle)
-        );
+       MathUtil.clamp(rotPID.calculate(navx.getYaw()/180, j.getX()), throttle, -throttle)
+    );
 
   }
 

@@ -21,11 +21,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drive extends SubsystemBase {
     
-    
-    /**
-    * Creates a new DriveSubsystem. Uses ArcadeDrive
-    */
-    /*  */
+
     private DifferentialDrive drive;
     private WPI_TalonSRX leftMaster;
     private WPI_TalonSRX leftSlave;
@@ -52,6 +48,10 @@ public class Drive extends SubsystemBase {
         leftEncoder = new Encoder(Constants.LEFT_CHANNEL_A, Constants.LEFT_CHANNEL_B);
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
 
+        // TODO: FIND this value
+        leftEncoder.setDistancePerPulse(1);
+        leftEncoder.setDistancePerPulse(1);
+
         fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
         rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
 
@@ -69,10 +69,21 @@ public class Drive extends SubsystemBase {
         drive.arcadeDrive(fwd, rot);
 
     }
+
+    public void resetEncoders() {
+
+      leftEncoder.reset();
+      rightEncoder.reset();
+    }
     
     public AHRS getNavxInstance() {
       return navx;
     }
+
+    public double getAvgVelocity() {
+      return (leftEncoder.getRate() + rightEncoder.getRate()) / 2;
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
@@ -80,6 +91,7 @@ public class Drive extends SubsystemBase {
     public void drive(double distance, double angle) {
         angle -= navx.getYaw();
         if(angle < -180) angle += 360;
+        
         double avgEncoderDistance = (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
         arcadeDrive(
           fwdPID.calculate(avgEncoderDistance, distance),
