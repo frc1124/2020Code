@@ -42,6 +42,8 @@ public final class Constants {
     public static final int LEFT_CHANNEL_B = 0;
     public static final int RIGHT_CHANNEL_A = 0;
     public static final int RIGHT_CHANNEL_B = 0;
+
+	public static final int SPINNER = 0;
     
 	
 }

@@ -98,5 +98,9 @@ public class Drive extends SubsystemBase {
           rotPID.calculate(navx.getYaw(), angle)
         );
     }
+    public void stop() {
+      leftMaster.set(0);
+      rightMaster.set(0);
+    }
 
 }
