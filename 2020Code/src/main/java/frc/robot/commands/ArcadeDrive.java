@@ -31,7 +31,7 @@ public class ArcadeDrive extends CommandBase {
   private PIDController fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
   private PIDController rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
 
-  private AHRS navx = new AHRS(SerialPort.Port.kMXP); 
+  private AHRS navx;
 
   private final Drive drive;
   private final Joystick j;
@@ -46,8 +46,10 @@ public class ArcadeDrive extends CommandBase {
   public ArcadeDrive(Drive drive, Joystick j) {
     this.drive = drive;
     this.j = j;
+    navx = drive.getNavxInstance(); 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
+
   }
 
   // Called when the command is initially scheduled.
@@ -59,12 +61,13 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     // j.getRawButton(Constants.);
-    drive.arcadeDrive(j.getY() * throttle, j.getX()* throttle);
-//NEED TO FIX THIS PID CODE --> MANUALLY CLAMP VALUES
-   /*drive.arcadeDrive(
-      Math.max(throttle, Math.min(-throttle), fwdPID.calculate(navx.getVelocityZ(), j.getY()), throttle), 
-      Math.max(throttle, Math.min(-throttle), rotPID.calculate(navx.getAngle(), j.getX()), throttle)
-      );*/
+    // drive.arcadeDrive(j.getY() * throttle, j.getX()* throttle);
+    //TODO: find getVelocity{X,Y,Z} and zero angle
+    navx.reset();
+    drive.arcadeDrive(
+       MathUtil.clamp(fwdPID.calculate(navx.getVelocityY(), j.getY()), throttle, -throttle), 
+       MathUtil.clamp(rotPID.calculate(navx.getAngle()/180, j.getX()), throttle, -throttle)
+        );
 
   }
 

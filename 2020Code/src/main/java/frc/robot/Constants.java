@@ -35,5 +35,13 @@ public final class Constants {
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
 
-    public static final double LaunchButton = 1;
+    public static final int TOP_ROLLER = 0;
+
+	
+    public static final int LEFT_CHANNEL_A = 0;
+    public static final int LEFT_CHANNEL_B = 0;
+    public static final int RIGHT_CHANNEL_A = 0;
+    public static final int RIGHT_CHANNEL_B = 0;
+    
+	
 }

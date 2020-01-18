@@ -11,45 +11,80 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 
 public class Drive extends SubsystemBase {
-  /**
-   * Creates a new DriveSubsystem. Uses ArcadeDrive
-   */
-  /*  */
-  private DifferentialDrive drive;
-  private WPI_TalonSRX leftMaster;
-  private WPI_TalonSRX leftSlave;
-  private WPI_TalonSRX rightMaster;
-  private WPI_TalonSRX rightSlave;
-
-
-  public Drive() {
     
-
-    // init the talons
-    leftMaster = new WPI_TalonSRX(Constants.LEFT_MASTER);
-    rightMaster = new WPI_TalonSRX(Constants.RIGHT_MASTER);
-    leftSlave = new WPI_TalonSRX(Constants.LEFT_SLAVE);
-    rightSlave = new WPI_TalonSRX(Constants.RIGHT_SLAVE);
-    leftSlave.follow(leftMaster);
-    rightSlave.follow(rightMaster);
-    leftSlave.setInverted(true);
-    leftMaster.setInverted(true);
     
-    // // assign slaves to master
+    /**
+    * Creates a new DriveSubsystem. Uses ArcadeDrive
+    */
+    /*  */
+    private DifferentialDrive drive;
+    private WPI_TalonSRX leftMaster;
+    private WPI_TalonSRX leftSlave;
+    private WPI_TalonSRX rightMaster;
+    private WPI_TalonSRX rightSlave;
+    
+    private Encoder leftEncoder;
+    private Encoder rightEncoder;
 
-    drive = new DifferentialDrive(leftMaster, rightMaster);
-  }
+    private PIDController fwdPID;
+    private PIDController rotPID;
 
-  public void arcadeDrive(double fwd, double rot) {
-    drive.arcadeDrive(-1*fwd, rot);
-  }
+    private AHRS navx;
+    
+    public Drive() {
+        
+        // init the talons
+        leftMaster = new WPI_TalonSRX(Constants.LEFT_MASTER);
+        rightMaster = new WPI_TalonSRX(Constants.RIGHT_MASTER);
+        leftSlave = new WPI_TalonSRX(Constants.LEFT_SLAVE);
+        rightSlave = new WPI_TalonSRX(Constants.RIGHT_SLAVE);
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+        // init the encoders
+        leftEncoder = new Encoder(Constants.LEFT_CHANNEL_A, Constants.LEFT_CHANNEL_B);
+        rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
+
+        fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
+        rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
+
+        // assign slaves to master
+        leftSlave.follow(leftMaster);
+        rightSlave.follow(rightMaster);
+        
+        // navx
+        navx = new AHRS(SPI.Port.kMXP);
+        
+        drive = new DifferentialDrive(leftMaster, rightMaster);
+    }
+    
+    public void arcadeDrive(double fwd, double rot) {
+        drive.arcadeDrive(fwd, rot);
+
+    }
+    
+    public AHRS getNavxInstance() {
+      return navx;
+    }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
+    public void drive(double distance, double angle) {
+        angle -= navx.getYaw();
+        if(angle < -180) angle += 360;
+        double avgEncoderDistance = (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+        arcadeDrive(
+          fwdPID.calculate(avgEncoderDistance, distance),
+          rotPID.calculate(navx.getYaw(), angle)
+        );
+    }
+
 }
