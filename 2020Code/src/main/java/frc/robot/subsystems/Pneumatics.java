@@ -1,3 +1,5 @@
+package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -5,8 +7,8 @@ import frc.robot.Constants;
 
 public class Pneumatics extends SubsystemBase {
 
-    public Compressor compressor = Constants.COMPRESSOR;
-    public DoubleSolenoid intakeLifter = Constants.INTAKE_LIFTER;
+    public Compressor compressor = new Compressor(Constants.COMPRESSOR);
+    public DoubleSolenoid intakeLifter = new DoubleSolenoid(Constants.INTAKE_LIFTER_A, Constants.INTAKE_LIFTER_B);
 
     
     public boolean running;
