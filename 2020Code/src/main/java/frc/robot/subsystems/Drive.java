@@ -48,8 +48,8 @@ public class Drive extends SubsystemBase {
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
 
         // 8192 ticks per rev; 6 in diameter
-        leftEncoder.setDistancePerPulse(8192 * 2 * 6 * Math.PI);
-        leftEncoder.setDistancePerPulse(8192 * 2 * 6 * Math.PI);
+        leftEncoder.setDistancePerPulse(2 * 6 * Math.PI / 8192);
+        leftEncoder.setDistancePerPulse(2 * 6 * Math.PI / 8192);
 
         // pid controllers
         fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
@@ -68,6 +68,8 @@ public class Drive extends SubsystemBase {
     public void arcadeDrive(double fwd, double rot) {
         drive.arcadeDrive(fwd, rot);
     }
+
+
 
     public void resetEncoders() {
       leftEncoder.reset();

@@ -57,7 +57,7 @@ public class ArcadeDrive extends CommandBase {
 
     // drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* THROTTLE);
 
-    double angle = j.getX() - navx.getYaw()/180;
+    double angle = j.getX() - navx.getYaw()/180.0;
     if (angle < -1) angle++;
     drive.arcadeDrive(
        MathUtil.clamp(fwdPID.calculate(drive.getAvgVelocity(), j.getY()), THROTTLE, -THROTTLE), 
