@@ -9,12 +9,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
+// import edu.wpi.first.wpilibj.XboxController;
 // import frc.robot.commands.ExampleCommand;
 // import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -25,10 +27,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive drive = new Drive();
-  private final Joystick j = new Joystick(Constants.ARCADE_STICK); // Creates a joystick on port 1
+  private static final Joystick j = new Joystick(Constants.ARCADE_STICK); // Creates a joystick on port 1
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, j);
 
 
+
+  private static final Button button1 = new JoystickButton(j, 1),
+           button2 = new JoystickButton(j, 2),
+           button3 = new JoystickButton(j, 3),
+           button4 = new JoystickButton(j, 4),
+           button5 = new JoystickButton(j, 5),
+           button6 = new JoystickButton(j, 6),
+           button7 = new JoystickButton(j, 7),
+           button8 = new JoystickButton(j, 8);
+ 
   public Command getTeleopDrive() {
       return arcadeDrive;
   }
@@ -48,7 +60,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    // JAY: this is how you do it
+    // button1.whenPressed(new ExampleCommand());
   }
 
 
