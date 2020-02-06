@@ -32,7 +32,7 @@ public class RobotContainer {
 
 
 
-  private static final Button button1 = new JoystickButton(j, 1),
+  public static final Button button1 = new JoystickButton(j, 1),
            button2 = new JoystickButton(j, 2),
            button3 = new JoystickButton(j, 3),
            button4 = new JoystickButton(j, 4),
