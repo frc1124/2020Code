@@ -49,19 +49,22 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void initialize() {
     navx.zeroYaw();
+    drive.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    // drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* THROTTLE);
-
-    double angle = j.getX() - navx.getYaw()/180.0;
+    //  drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* THROTTLE);
+    // drive.arcadeDrive(1,0);
+    // double angle = j.getX() - navx.getYaw()/180.0;
     if (angle < -1) angle++;
+    //double maxVel = Math.pi()*6*
     drive.arcadeDrive(
-       MathUtil.clamp(fwdPID.calculate(drive.getAvgVelocity(), j.getY()), THROTTLE, -THROTTLE), 
-       MathUtil.clamp(rotPID.calculate(angle, j.getX()), THROTTLE, -THROTTLE)
+       MathUtil.clamp(fwdPID.calculate(drive.getAvgVelocity(), j.getY()*drive.getAvgVelocity()), THROTTLE, -THROTTLE), 
+       0  
+      //  MathUtil.clamp(rotPID.calculate(angle, j.getX()), THROTTLE, -THROTTLE)
     );
   }
 
