@@ -20,15 +20,9 @@ import java.util.HashMap;
 public final class Constants {
     //Drive Train Mapping
     public static final int RIGHT_MASTER = 1;
-<<<<<<< HEAD
     public static final int RIGHT_SLAVE = 0;
     public static final int LEFT_MASTER = 3;
     public static final int LEFT_SLAVE = 2;
-=======
-    public static final int RIGHT_SLAVE = 2;
-    public static final int LEFT_MASTER = 3;
-    public static final int LEFT_SLAVE = 0;
->>>>>>> c75d9bc018b656c02772cf675e81c1a3f71f0f8d
 
     public static final int ARCADE_STICK = 0;
     
