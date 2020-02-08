@@ -15,11 +15,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort;
 
 public class Drive extends SubsystemBase {
     
+    private SerialPort distanceSensor;
 
     private DifferentialDrive drive;
     private WPI_TalonSRX leftMaster;
@@ -37,6 +40,8 @@ public class Drive extends SubsystemBase {
     
     public Drive() {
         
+        // init color sensor
+
         // init the talons
         leftMaster = new WPI_TalonSRX(Constants.LEFT_MASTER);
         rightMaster = new WPI_TalonSRX(Constants.RIGHT_MASTER);

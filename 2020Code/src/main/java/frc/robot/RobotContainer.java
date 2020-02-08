@@ -17,7 +17,7 @@ import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import java.util.*;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -32,18 +32,20 @@ public class RobotContainer {
 
 
 
-  public static final Button button1 = new JoystickButton(j, 1),
-           button2 = new JoystickButton(j, 2),
-           button3 = new JoystickButton(j, 3),
-           button4 = new JoystickButton(j, 4),
-           button5 = new JoystickButton(j, 5),
-           button6 = new JoystickButton(j, 6),
-           button7 = new JoystickButton(j, 7),
-           button8 = new JoystickButton(j, 8);
+  // public static final Button button1 = new JoystickButton(j, 1),
+  //          button2 = new JoystickButton(j, 2),
+  //          button3 = new JoystickButton(j, 3),
+  //          button4 = new JoystickButton(j, 4),
+  //          button5 = new JoystickButton(j, 5),
+  //          button6 = new JoystickButton(j, 6),
+  //          button7 = new JoystickButton(j, 7),
+  //          button8 = new JoystickButton(j, 8);
  
   public Command getTeleopDrive() {
       return arcadeDrive;
   }
+
+  public static HashMap<String, Button> buttonMap;
 
   /**
    * The contai ner for the robot.  Contains subsystems, OI devices, and commands.
@@ -51,6 +53,17 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    logitechMap = new HashMap<String, Button>();
+  
+    logitechMap.put("A", new JoystickButton(j, 1));
+    logitechMap.put("B", new JoystickButton(j, 2));
+    logitechMap.put("X", new JoystickButton(j, 3));
+    logitechMap.put("Y", new JoystickButton(j, 4));
+    logitechMap.put("LB", new JoystickButton(j, 5));
+    logitechMap.put("RB", new JoystickButton(j, 6));
+    logitechMap.put("Back", new JoystickButton(j, 7));
+    logitechMap.put("A", new JoystickButton(j, 1));
+
   }
 
   /**
