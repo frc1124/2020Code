@@ -46,15 +46,8 @@ public class RobotContainer {
   }
 
   public static HashMap<String, Button> buttonMap;
-
-  /**
-   * The contai ner for the robot.  Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
+  public static boolean getKey(String key) {
     logitechMap = new HashMap<String, Button>();
-  
     logitechMap.put("A", new JoystickButton(j, 1));
     logitechMap.put("B", new JoystickButton(j, 2));
     logitechMap.put("X", new JoystickButton(j, 3));
@@ -63,7 +56,18 @@ public class RobotContainer {
     logitechMap.put("RB", new JoystickButton(j, 6));
     logitechMap.put("Back", new JoystickButton(j, 7));
     logitechMap.put("A", new JoystickButton(j, 1));
+    return logitechMap.get(key);
 
+  }
+  
+  /**
+   * The contai ner for the robot.  Contains subsystems, OI devices, and commands.
+   */
+  public RobotContainer() {
+    // Configure the button bindings
+    configureButtonBindings();
+
+  
   }
 
   /**

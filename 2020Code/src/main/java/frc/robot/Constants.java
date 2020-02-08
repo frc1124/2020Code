@@ -37,7 +37,8 @@ public final class Constants {
     public static final int TOP_ROLLER = 0;
 
     public static final int INTAKE_ROLLER = 4;
-	
+    public static final int HOPPER_ROLLER = 0;
+    
     public static final int LEFT_CHANNEL_A = 0;
     public static final int LEFT_CHANNEL_B = 1;
     public static final int RIGHT_CHANNEL_A = 2;
@@ -48,6 +49,10 @@ public final class Constants {
     public static final int COMPRESSOR = 0;
     public static final int INTAKE_LIFTER_A = 0;
     public static final int INTAKE_LIFTER_B = 0;
+    public static final int LEFT_CLIMB_A = 0;
+    public static final int LEFT_CLIMB_B = 0;
+    public static final int RIGHT_CLIMB_A = 0;
+    public static final int RIGHT_CLIMB_B = 0;
     
 	
 }

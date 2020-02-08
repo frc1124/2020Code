@@ -1,15 +1,18 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Pneumatics;
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
+import frc.robot.RobotContainer;
+import frc.robot.Constants;;
 
-public class LowerIntake extends CommandBase{
-  private final Pneumatics pneumatics = new Pneumatics();
-    public LowerIntake(Pneumatics pneumatics) {
-        this.pneumatics = pneumatics;
-        // Use addRequirements() here to declare pneumatics dependencies.
-        addRequirements(pneumatics);
+public class SuccBalls extends CommandBase{
+    public Intake intake; 
+    
+    public SuccBalls(Intake Intake) {
+        this.intake = Intake;
+        // Use addRequirements() here to declare launcher dependencies.
+        addRequirements(intake);
       }
     
       // Called when the command is initially scheduled.
@@ -20,13 +23,14 @@ public class LowerIntake extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          if (RobotContainer.getkey("X"))
-            pneumatics.lowerIntake();
+          if (RobotContainer.getKey("Y"));
+            intake.run();
       }
     
       // Called once the command ends or is interrupted.
       @Override
       public void end(boolean interrupted) {
+        intake.stop();
       }
     
       // Returns true when the command should end.
@@ -34,6 +38,4 @@ public class LowerIntake extends CommandBase{
       public boolean isFinished() {
         return false;
       }
-
 }
-

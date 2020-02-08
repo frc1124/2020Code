@@ -7,12 +7,20 @@ import frc.robot.Constants;
 
 public class Pneumatics extends SubsystemBase {
 
-    public Compressor compressor = new Compressor(Constants.COMPRESSOR);
-    public DoubleSolenoid intakeLifter = new DoubleSolenoid(Constants.INTAKE_LIFTER_A, Constants.INTAKE_LIFTER_B);
-
+    private Compressor compressor;
+    private DoubleSolenoid intakeLifter;
+    private DoubleSolenoid rightClimber;
+    private DoubleSolenoid leftClimber;
     
     public boolean running;
     
+    public Pneumatics() {
+        compressor = new Compressor(Constants.COMPRESSOR);
+        intakeLifter = new DoubleSolenoid(Constants.INTAKE_LIFTER_A, Constants.INTAKE_LIFTER_B);
+        leftClimber = new DoubleSolenoid(Constants.LEFT_CLIMB_A, Constants.LEFT_CLIMB_B);
+        rightClimber = new DoubleSolenoid(Constants.RIGHT_CLIMB_A, Constants.RIGHT_CLIMB_B);
+    }
+
     public void init(){
         compressor.start();
     }
@@ -27,6 +35,16 @@ public class Pneumatics extends SubsystemBase {
     
     public void intakeSolenoidOff(){
         intakeLifter.set(DoubleSolenoid.Value.kOff);
+    }
+
+    public void extendClimb(){
+        leftClimber.set(DoubleSolenoid.Value.kForward);
+        rightClimber.set(DoubleSolenod.Value.kForward);
+    }
+
+    public void retractClimb(){
+        leftClimber.set(DoubleSolenoid.Value.kReverse);
+        rightClimber.set(DoubleSolenoid.Value.kReverse);
     }
     
     // Put methods for controlling this subsystem
