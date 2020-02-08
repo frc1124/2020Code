@@ -1,8 +1,9 @@
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Hopper {
+public class Hopper extends SubsystemBase{
     private TalonSRX hopperRoller;
     private final double throttle = 1;
 

@@ -49,7 +49,7 @@ public class Target extends CommandBase {
   @Override
   public void execute() {
     CommandScheduler.getInstance().schedule(new Turn(drive, angle));
-    CommandScheduler.getInstance().schedule(new Move(drive.getDistanceSensor() - targetDistance));
+  //CommandScheduler.getInstance().schedule(new Move(drive.getDistanceSensor() - targetDistance));
     CommandScheduler.getInstance().schedule(new Turn(drive, -angle));
   }
 

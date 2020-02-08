@@ -13,9 +13,9 @@ public class Climb extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (RobotContainer.logitechMap("B")){
+        if (RobotContainer.getKey("B")){
             pneumatics.extendClimb();
-        } else if (RobotContainer.logitechMap("X")){
+        } else if (RobotContainer.getKey("X")){
             pneumatics.retractClimb();
         }
     }

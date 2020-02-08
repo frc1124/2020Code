@@ -45,7 +45,7 @@ public class RobotContainer {
       return arcadeDrive;
   }
 
-  public static HashMap<String, Button> buttonMap;
+  public static HashMap<String, Button> logitechMap;
   public static boolean getKey(String key) {
     logitechMap = new HashMap<String, Button>();
     logitechMap.put("A", new JoystickButton(j, 1));

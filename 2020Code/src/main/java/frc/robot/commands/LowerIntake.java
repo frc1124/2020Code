@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LowerIntake extends CommandBase{
-  private final Pneumatics pneumatics = new Pneumatics();
+  private Pneumatics pneumatics = new Pneumatics();
     public LowerIntake(Pneumatics pneumatics) {
         this.pneumatics = pneumatics;
         // Use addRequirements() here to declare pneumatics dependencies.
@@ -20,7 +20,7 @@ public class LowerIntake extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          if (RobotContainer.getkey("X"))
+          if (RobotContainer.getKey("X"))
             pneumatics.lowerIntake();
       }
     

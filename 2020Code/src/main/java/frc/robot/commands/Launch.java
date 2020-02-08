@@ -21,13 +21,8 @@ public class Launch extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-<<<<<<< HEAD
           if (RobotContainer.getKey("A"));
             launcher.run();
-=======
-
-          launcher.run();
->>>>>>> 4078868b111a789cde33c897c7bd913c85bc99d1
       }
     
       // Called once the command ends or is interrupted.

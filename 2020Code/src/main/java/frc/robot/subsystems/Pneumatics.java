@@ -39,7 +39,7 @@ public class Pneumatics extends SubsystemBase {
 
     public void extendClimb(){
         leftClimber.set(DoubleSolenoid.Value.kForward);
-        rightClimber.set(DoubleSolenod.Value.kForward);
+        rightClimber.set(DoubleSolenoid.Value.kForward);
     }
 
     public void retractClimb(){
