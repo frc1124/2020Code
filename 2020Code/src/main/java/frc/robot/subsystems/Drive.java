@@ -80,6 +80,10 @@ public class Drive extends SubsystemBase {
       return navx;
     }
 
+    public double getAvgDistance() {
+      // inches per second
+      return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+    }
     public double getAvgVelocity() {
       // inches per second
       return (leftEncoder.getRate() + rightEncoder.getRate()) / 2;
@@ -100,6 +104,23 @@ public class Drive extends SubsystemBase {
           rotPID.calculate(navx.getYaw(), angle)
         );
     }
+    public boolean move(double distance) {
+      double s = fwdPID.calculate(getAvgDistance(), distance);
+      if( s != 0 ) {
+        arcadeDrive(s,0);
+        return true;
+      } else return false;
+    }
+
+    public boolean turn(double angle) {
+      angle -= navx.getYaw();
+      if (angle < -180)
+        angle += 360;
+        if( angle != 0 ) {
+          arcadeDrive(0,angle/360);
+          return true;
+        } else return false;
+      }
 
     public void stop() {
       leftMaster.set(0);
