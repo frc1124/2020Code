@@ -10,8 +10,8 @@ public class FeedBallz extends CommandBase {
 
     private Hopper hopper;
 
-    public FeedBallz(Hopper Hopper) {
-        this.hopper = Hopper;
+    public FeedBallz(Hopper h) {
+        this.hopper = h;
         addRequirements(hopper);
     }
 

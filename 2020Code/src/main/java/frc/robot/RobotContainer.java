@@ -56,8 +56,7 @@ public class RobotContainer {
     logitechMap.put("RB", new JoystickButton(j, 6));
     logitechMap.put("Back", new JoystickButton(j, 7));
     logitechMap.put("A", new JoystickButton(j, 1));
-    return logitechMap.get(key);
-
+    return logitechMap.get(key).get();
   }
   
   /**

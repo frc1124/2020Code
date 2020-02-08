@@ -6,10 +6,10 @@ import frc.robot.subsystems.Intake;
 import frc.robot.RobotContainer;
 import frc.robot.Constants;;
 
-public class SuccBalls extends CommandBase{
+public class SuccBallz extends CommandBase{
     public Intake intake; 
     
-    public SuccBalls(Intake Intake) {
+    public SuccBallz(Intake Intake) {
         this.intake = Intake;
         // Use addRequirements() here to declare launcher dependencies.
         addRequirements(intake);

@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Pneumatics;
 
 public class Climb extends CommandBase{
-    private final Pneumatics pneumatics = new Pnuematics();
+    private Pneumatics pneumatics;
 
     public void initialize() {
     }
