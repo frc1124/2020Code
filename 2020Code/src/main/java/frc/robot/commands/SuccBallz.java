@@ -23,7 +23,7 @@ public class SuccBallz extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          if (RobotContainer.getKey("Y"));
+          // if (RobotContainer.getKey("Y"));
             intake.run();
       }
     

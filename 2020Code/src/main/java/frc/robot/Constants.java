@@ -21,7 +21,7 @@ public final class Constants {
     //Drive Train Mapping
     public static final int RIGHT_MASTER = 1;
     public static final int RIGHT_SLAVE = 2;
-    public static final int LEFT_MASTER = 3;
+    public static final int LEFT_MASTER = 5;
     public static final int LEFT_SLAVE = 0;
 
     public static final int ARCADE_STICK = 0;
@@ -34,10 +34,11 @@ public final class Constants {
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
 
-    public static final int TOP_ROLLER = 0;
+    public static final int TOP_ROLLER = 6;
 
-    public static final int INTAKE_ROLLER = 4;
-    public static final int HOPPER_ROLLER = 0;
+    public static final int INTAKE_ROLLER = 7;
+    public static final int HOPPER_ROLLER = 3;
+    public static final int DISC_ROLLER = 4;
     
     public static final int LEFT_CHANNEL_A = 0;
     public static final int LEFT_CHANNEL_B = 1;

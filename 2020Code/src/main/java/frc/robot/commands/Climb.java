@@ -13,11 +13,11 @@ public class Climb extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (RobotContainer.getKey("B")){
-            pneumatics.extendClimb();
-        } else if (RobotContainer.getKey("X")){
-            pneumatics.retractClimb();
-        }
+        // if (RobotContainer.getKey("B")){
+        //     pneumatics.extendClimb();
+        // } else if (RobotContainer.getKey("X")){
+        //     pneumatics.retractClimb();
+        // }
     }
 
     // Called once the command ends or is interrupted.

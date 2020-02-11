@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class DiscSpinner extends SubsystemBase{
     private WPI_TalonSRX spinner;
-    private final double THROTTLE = 1; 
+    private final double THROTTLE = .1; 
 
     public DiscSpinner(){
         spinner = new WPI_TalonSRX(Constants.SPINNER);

@@ -22,8 +22,8 @@ public class FeedBallz extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(RobotContainer.getKey("LB"));
-            hopper.run();
+        // if(RobotContainer.getKey("LB"));
+        hopper.run();
     }
   
     // Called once the command ends or is interrupted.
@@ -31,8 +31,8 @@ public class FeedBallz extends CommandBase {
     public void end(boolean interrupted) {
       hopper.stop();
     }
-  
-    // Returns true when the command should end.
+    
+     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
       return false;

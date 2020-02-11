@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.*;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -29,7 +31,9 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private static final Joystick j = new Joystick(Constants.ARCADE_STICK); // Creates a joystick on port 1
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, j);
-
+  private final Intake intake = new Intake();
+  private final Hopper hopper = new Hopper();
+  private final Launcher launcher = new Launcher();
 
 
   // public static final Button button1 = new JoystickButton(j, 1),
@@ -46,7 +50,7 @@ public class RobotContainer {
   }
 
   public static HashMap<String, Button> logitechMap;
-  public static boolean getKey(String key) {
+  public static Button getKey(String key) {
     logitechMap = new HashMap<String, Button>();
     logitechMap.put("A", new JoystickButton(j, 1));
     logitechMap.put("B", new JoystickButton(j, 2));
@@ -56,7 +60,7 @@ public class RobotContainer {
     logitechMap.put("RB", new JoystickButton(j, 6));
     logitechMap.put("Back", new JoystickButton(j, 7));
     logitechMap.put("A", new JoystickButton(j, 1));
-    return logitechMap.get(key).get();
+    return logitechMap.get(key);
   }
   
   /**
@@ -78,6 +82,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
+    getKey("Y").whenPressed(new SuccBallz(intake));
+    getKey("X").whenPressed(new FeedBallz(hopper));
+    getKey("A").whenPressed(new DrainBallz(launcher));
   }
 
 
