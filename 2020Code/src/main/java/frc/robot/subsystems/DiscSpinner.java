@@ -14,7 +14,7 @@ public class DiscSpinner extends SubsystemBase{
         spinner = new WPI_TalonSRX(Constants.SPINNER);
    }
 
-   public void start() {
+   public void run() {
        spinner.set(THROTTLE);
     }
 

@@ -5,6 +5,8 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LowerIntake extends CommandBase{
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
   private Pneumatics pneumatics = new Pneumatics();
     public LowerIntake(Pneumatics pneumatics) {
         this.pneumatics = pneumatics;
@@ -20,7 +22,6 @@ public class LowerIntake extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          //if (RobotContainer.getKey("X"))
          pneumatics.lowerIntake();
       }
     

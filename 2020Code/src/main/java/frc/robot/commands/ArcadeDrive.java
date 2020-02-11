@@ -34,7 +34,7 @@ public class ArcadeDrive extends CommandBase {
   private final Drive drive;
   private final Joystick j;
 
-  private final double THROTTLE = .75;
+  private final double THROTTLE = -.75;
 
   public ArcadeDrive(Drive drive, Joystick j) {
     this.drive = drive;

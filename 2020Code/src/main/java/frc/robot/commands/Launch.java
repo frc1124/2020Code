@@ -5,10 +5,12 @@ import frc.robot.subsystems.Launcher;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DrainBallz extends CommandBase{
+public class Launch extends CommandBase{
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
   private Launcher launcher;
-    public DrainBallz(Launcher launcher) {
-        this.launcher = launcher;
+    public Launch(Launcher l) {
+        launcher = l;
         // Use addRequirements() here to declare launcher dependencies.
         addRequirements(launcher);
       }
@@ -21,7 +23,6 @@ public class DrainBallz extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          // if (RobotContainer.getKey("A"));
           launcher.run();
       }
     

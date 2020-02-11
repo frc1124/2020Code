@@ -34,6 +34,8 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Hopper hopper = new Hopper();
   private final Launcher launcher = new Launcher();
+  private final DiscSpinner discspinner = new DiscSpinner();
+  private final Pneumatics pneumatics = new Pneumatics();
 
 
   // public static final Button button1 = new JoystickButton(j, 1),
@@ -82,9 +84,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
-    getKey("Y").whenPressed(new SuccBallz(intake));
-    getKey("X").whenPressed(new FeedBallz(hopper));
-    getKey("A").whenPressed(new DrainBallz(launcher));
+    getKey("Y").whileHeld(new SuccBallz(intake));
+    getKey("X").whileHeld(new FeedBallz(hopper));
+    getKey("A").whileHeld(new Launch(launcher));
+    getKey("B").whileHeld(new SpinDisc(discspinner));
+    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    //getKey("RB").whileHeld(new );
   }
 
 

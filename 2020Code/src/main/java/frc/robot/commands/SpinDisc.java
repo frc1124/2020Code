@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DiscSpinner;
 
 public class SpinDisc extends CommandBase{
+    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    
     DiscSpinner discspinner;
 
     public SpinDisc(DiscSpinner d){

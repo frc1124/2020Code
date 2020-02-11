@@ -7,6 +7,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class FeedBallz extends CommandBase {
+    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private Hopper hopper;
 
@@ -22,7 +23,6 @@ public class FeedBallz extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // if(RobotContainer.getKey("LB"));
         hopper.run();
     }
   

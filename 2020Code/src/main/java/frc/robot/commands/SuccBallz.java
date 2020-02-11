@@ -7,6 +7,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants;;
 
 public class SuccBallz extends CommandBase{
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     public Intake intake; 
     
     public SuccBallz(Intake Intake) {
