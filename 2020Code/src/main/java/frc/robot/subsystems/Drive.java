@@ -97,6 +97,9 @@ public class Drive extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        // 28:50 ratio
+        SmartDashboard.putNumber("L Encoder D", leftEncoder.getDistance());
+        SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
     }
 
     public void drive(double distance, double angle) {
@@ -110,7 +113,8 @@ public class Drive extends SubsystemBase {
         );
     }
     public boolean move(double distance) {
-      double s = fwdPID.calculate(getAvgDistance(), distance);
+      
+      double s = fwdPID.calculate(getAvgDistance(), 1000);
       if( s != 0 ) {
         arcadeDrive(s,0);
         return true;

@@ -34,7 +34,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Hopper hopper = new Hopper();
   private final Launcher launcher = new Launcher();
-  private final DiscSpinner discspinner = new DiscSpinner();
+  //private final DiscSpinner discspinner = new DiscSpinner();
  // private final Pneumatics pneumatics = new Pneumatics();
 
  
@@ -82,6 +82,8 @@ public class RobotContainer {
     //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy ps. Rohan wrote that
+
+    getKey("B").whenPressed(new PIDTest(drive));
   }
 
   /**

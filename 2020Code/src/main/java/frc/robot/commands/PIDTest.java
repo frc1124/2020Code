@@ -31,6 +31,7 @@ public class PIDTest extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    drive.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,6 +49,7 @@ public class PIDTest extends CommandBase {
   @Override
   public boolean isFinished() {
     // set distance in inches
-    return drive.move(4);
+    double distance = drive.getAvgDistance();
+    return drive.move(48);
   }
 }

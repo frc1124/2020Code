@@ -56,16 +56,17 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
 
-     drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* THROTTLE);
+    // drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* -1*THROTTLE);
     // drive.arcadeDrive(1,0);
     // double angle = j.getX() - navx.getYaw()/180.0;
     //if (angle < -1) angle++;
     //double maxVel = Math.pi()*6*
-    // drive.arcadeDrive(
-    //    MathUtil.clamp(fwdPID.calculate(drive.getAvgVelocity(), j.getY()*drive.getAvgVelocity()), THROTTLE, -THROTTLE), 
-    //    0  
-    //   //  MathUtil.clamp(rotPID.calculate(angle, j.getX()), THROTTLE, -THROTTLE)
-    // );
+    System.out.println(fwdPID.calculate(drive.getAvgVelocity(), j.getY()*drive.getAvgVelocity()));
+    drive.arcadeDrive(
+       MathUtil.clamp(fwdPID.calculate(drive.getAvgVelocity(), j.getY()*drive.getAvgVelocity()), THROTTLE, -THROTTLE), 
+       0  
+      //  MathUtil.clamp(rotPID.calculate(angle, j.getX()), THROTTLE, -THROTTLE)
+    );
   }
 
   // Called once the command ends or is interrupted.

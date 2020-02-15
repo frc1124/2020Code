@@ -26,7 +26,7 @@ public final class Constants {
 
     public static final int ARCADE_STICK = 0;
     
-    public static final double FWD_P = 0;
+    public static final double FWD_P = 1;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
 
