@@ -34,18 +34,16 @@ public final class Constants {
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
 
-    public static final int TOP_ROLLER = 6;
+    public static final int TOP_ROLLER = 4;
 
     public static final int INTAKE_ROLLER = 7;
     public static final int HOPPER_ROLLER = 3;
-    public static final int DISC_ROLLER = 4;
+    public static final int DISC_ROLLER = 6;
     
     public static final int LEFT_CHANNEL_A = 0;
     public static final int LEFT_CHANNEL_B = 1;
     public static final int RIGHT_CHANNEL_A = 2;
     public static final int RIGHT_CHANNEL_B = 3;
-
-    public static final int SPINNER = 0;
     
     public static final int COMPRESSOR = 0;
     public static final int INTAKE_LIFTER_A = 0;

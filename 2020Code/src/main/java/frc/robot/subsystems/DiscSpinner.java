@@ -11,7 +11,7 @@ public class DiscSpinner extends SubsystemBase{
     private final double THROTTLE = .1; 
 
     public DiscSpinner(){
-        spinner = new WPI_TalonSRX(Constants.SPINNER);
+        spinner = new WPI_TalonSRX(Constants.DISC_ROLLER);
    }
 
    public void run() {

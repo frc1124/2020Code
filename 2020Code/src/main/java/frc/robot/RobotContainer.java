@@ -35,17 +35,8 @@ public class RobotContainer {
   private final Hopper hopper = new Hopper();
   private final Launcher launcher = new Launcher();
   private final DiscSpinner discspinner = new DiscSpinner();
-  private final Pneumatics pneumatics = new Pneumatics();
+ // private final Pneumatics pneumatics = new Pneumatics();
 
-
-  // public static final Button button1 = new JoystickButton(j, 1),
-  //          button2 = new JoystickButton(j, 2),
-  //          button3 = new JoystickButton(j, 3),
-  //          button4 = new JoystickButton(j, 4),
-  //          button5 = new JoystickButton(j, 5),
-  //          button6 = new JoystickButton(j, 6),
-  //          button7 = new JoystickButton(j, 7),
-  //          button8 = new JoystickButton(j, 8);
  
   public Command getTeleopDrive() {
       return arcadeDrive;
@@ -66,7 +57,7 @@ public class RobotContainer {
   }
   
   /**
-   * The contai ner for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
@@ -86,12 +77,12 @@ public class RobotContainer {
     // button1.whenPressed(new ExampleCommand());
     getKey("Y").whileHeld(new SuccBallz(intake));
     getKey("X").whileHeld(new FeedBallz(hopper));
-    getKey("A").whileHeld(new Launch(launcher));
-    getKey("B").whileHeld(new SpinDisc(discspinner));
-    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    getKey("A").whenPressed(new Launch(launcher));
+    //getKey("B").whileHeld(new SpinDisc(discspinner));
+    //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
     //getKey("RB").whileHeld(new );
+    //rohan is sexy ps. Rohan wrote that
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
