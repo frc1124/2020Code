@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends SubsystemBase {
     
@@ -53,8 +54,8 @@ public class Drive extends SubsystemBase {
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
 
         // 8192 ticks per rev; 6 in diameter
-        leftEncoder.setDistancePerPulse(2 * 3 * Math.PI / 8192);
-        leftEncoder.setDistancePerPulse(2 * 3 * Math.PI / 8192);
+        leftEncoder.setDistancePerPulse(2 * 3 * Math.PI / 2048);
+        rightEncoder.setDistancePerPulse(2 * 3 * Math.PI / 2048);
 
         // pid controllers
         fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
@@ -100,6 +101,8 @@ public class Drive extends SubsystemBase {
         // 28:50 ratio
         SmartDashboard.putNumber("L Encoder D", leftEncoder.getDistance());
         SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
+        SmartDashboard.putNumber("L Encoder R", leftEncoder.getDistance());
+        SmartDashboard.putNumber("R Encoder R", rightEncoder.getDistance());
     }
 
     public void drive(double distance, double angle) {
