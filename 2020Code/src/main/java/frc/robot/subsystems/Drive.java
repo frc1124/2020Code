@@ -12,6 +12,9 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -19,10 +22,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
+// import frc.robot.Radar;
 
 public class Drive extends SubsystemBase {
     
     private SerialPort distanceSensor;
+    // private Radar radar;
 
     private DifferentialDrive drive;
     private WPI_TalonSRX leftMaster;
@@ -40,6 +45,8 @@ public class Drive extends SubsystemBase {
     
     public Drive() {
         
+        // init radar sensor
+        // radar = new Radar();
         // init color sensor
 
         // init the talons
@@ -51,6 +58,12 @@ public class Drive extends SubsystemBase {
         // init the encoders
         leftEncoder = new Encoder(Constants.LEFT_CHANNEL_A, Constants.LEFT_CHANNEL_B);
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
+
+        // set modes to break
+        leftMaster.setNeutralMode(NeutralMode.Brake);
+        rightMaster.setNeutralMode(NeutralMode.Brake);
+        leftSlave.setNeutralMode(NeutralMode.Brake);
+        rightSlave.setNeutralMode(NeutralMode.Brake);
 
         // 8192 ticks per rev; 6 in diameter
         leftEncoder.setDistancePerPulse(2 * 3 * Math.PI / 8192);
@@ -100,6 +113,13 @@ public class Drive extends SubsystemBase {
         // 28:50 ratio
         SmartDashboard.putNumber("L Encoder D", leftEncoder.getDistance());
         SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
+        SmartDashboard.putNumber("L Encoder R", leftEncoder.getRaw());
+        SmartDashboard.putNumber("R Encoder R", rightEncoder.getRaw());
+    }
+
+    public double getDistance() {
+      // return radar.getInches();
+      return 0;
     }
 
     public void drive(double distance, double angle) {
@@ -114,7 +134,7 @@ public class Drive extends SubsystemBase {
     }
     public boolean move(double distance) {
       
-      double s = fwdPID.calculate(getAvgDistance(), 1000);
+      double s = fwdPID.calculate(getAvgDistance(), distance);
       if( s != 0 ) {
         arcadeDrive(s,0);
         return true;

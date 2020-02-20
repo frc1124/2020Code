@@ -26,6 +26,7 @@ public class Move extends CommandBase {
   private final double THROTTLE = .75;
   private double initialDistance;
   private double distance;
+  private boolean isFinished = false;
 
   public Move(Drive drive, double distance) {
     this.distance = distance;
@@ -45,6 +46,7 @@ public class Move extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    isFinished = drive.move(initialDistance + distance);
   }
 
   // Called once the command ends or is interrupted.
@@ -56,6 +58,6 @@ public class Move extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return drive.move(initialDistance + distance);
+    return isFinished;
   }
 }
