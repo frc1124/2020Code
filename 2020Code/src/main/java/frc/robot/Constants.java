@@ -44,6 +44,8 @@ public final class Constants {
     public static final int LEFT_CHANNEL_B = 1;
     public static final int RIGHT_CHANNEL_A = 2;
     public static final int RIGHT_CHANNEL_B = 3;
+    public static final int LAUNCHER_CHANNEL_A = 4;
+    public static final int LAUNCHER_CHANNEL_B = 5;
     
     public static final int COMPRESSOR = 0;
     public static final int INTAKE_LIFTER_A = 0;

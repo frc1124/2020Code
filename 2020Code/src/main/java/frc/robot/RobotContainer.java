@@ -62,8 +62,6 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
-  
   }
 
   /**
@@ -81,9 +79,9 @@ public class RobotContainer {
     //getKey("B").whileHeld(new SpinDisc(discspinner));
     //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
     //getKey("RB").whileHeld(new );
-    //rohan is sexy ps. Rohan wrote that
+    //rohan is sexy (ps. Rohan wrote that)
 
-    getKey("B").whenPressed(new PIDTest(drive));
+    getKey("B").whenPressed(new Move(drive,48));
   }
 
   /**

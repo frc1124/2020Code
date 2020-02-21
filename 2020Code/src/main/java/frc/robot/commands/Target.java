@@ -17,6 +17,7 @@ import frc.robot.subsystems.Drive;
  */
 public class Target extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private boolean ranOnce = false;
   private final Drive drive;
   private final int imageWidth = 0;
   private final int fov = 120;
@@ -45,12 +46,14 @@ public class Target extends CommandBase {
 
   }
 
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     CommandScheduler.getInstance().schedule(new Turn(drive, angle));
-  //CommandScheduler.getInstance().schedule(new Move(drive.getDistanceSensor() - targetDistance));
+    CommandScheduler.getInstance().schedule(new Move(drive, drive.getDistance() - targetDistance));
     CommandScheduler.getInstance().schedule(new Turn(drive, -angle));
+    ranOnce = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -61,6 +64,6 @@ public class Target extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return ranOnce;
   }
 }
