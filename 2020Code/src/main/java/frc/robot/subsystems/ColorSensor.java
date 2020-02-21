@@ -22,17 +22,18 @@ public class ColorSensor extends SubsystemBase {
    */
   private final I2C.Port i2cPort = I2C.Port.kOnboard; // what is an I2C port
 
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  private final ColorSensorV3 m_colorSensor;
 
-  private final ColorMatch m_colorMatcher = new ColorMatch();
+  private final ColorMatch m_colorMatcher;
 
-  private final Color Blue = ColorMatch.makeColor(1, 0, 0);
-  private final Color Green = ColorMatch.makeColor(1, 1, 0);
-  private final Color Red = ColorMatch.makeColor(0, 1, 1);
-  private final Color Yellow = ColorMatch.makeColor(0, 0, 1);
+  public final Color Blue = ColorMatch.makeColor(1, 0, 0);
+  public final Color Green = ColorMatch.makeColor(1, 1, 0);
+  public final Color Red = ColorMatch.makeColor(0, 1, 1);
+  public final Color Yellow = ColorMatch.makeColor(0, 0, 1);
 
   public ColorSensor() {
-
+    m_colorSensor = new ColorSensorV3(i2cPort);
+    m_colorMatcher = new ColorMatch();
     m_colorMatcher.addColorMatch(Blue);
     m_colorMatcher.addColorMatch(Green);
     m_colorMatcher.addColorMatch(Red);
@@ -40,22 +41,11 @@ public class ColorSensor extends SubsystemBase {
 
   }
 
-  @Override
-  public void periodic() {
+  //@Override
+  public ColorMatchResult getColor() {
     // This method will be called once per scheduler run
     Color detectedColor = m_colorSensor.getColor();
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-
-    if (match.color == Blue) {
-
-    } else if (match.color == Green) {
-
-    } else if (match.color == Red) {
-
-    } else if (match.color == Yellow) {
-
-    } else {
-
-    }
+    return match;
   }
 }

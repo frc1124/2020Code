@@ -34,7 +34,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Hopper hopper = new Hopper();
   private final Launcher launcher = new Launcher();
-  //private final DiscSpinner discspinner = new DiscSpinner();
+  private final DiscSpinner discspinner = new DiscSpinner();
  // private final Pneumatics pneumatics = new Pneumatics();
 
  
@@ -76,7 +76,7 @@ public class RobotContainer {
     getKey("Y").whileHeld(new SuccBallz(intake));
     getKey("X").whileHeld(new FeedBallz(hopper));
     getKey("A").whenPressed(new Launch(launcher));
-    //getKey("B").whileHeld(new SpinDisc(discspinner));
+    getKey("LB").whileHeld(new SpinDisc(discspinner));
     //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy (ps. Rohan wrote that)

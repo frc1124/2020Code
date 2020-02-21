@@ -9,16 +9,18 @@ public class Pneumatics extends SubsystemBase {
 
     private Compressor compressor;
     private DoubleSolenoid intakeLifter;
-    private DoubleSolenoid rightClimber;
-    private DoubleSolenoid leftClimber;
+    private DoubleSolenoid climber;
+    // private DoubleSolenoid rightClimber;
+    // private DoubleSolenoid leftClimber;
     
     public boolean running;
     
     public Pneumatics() {
         compressor = new Compressor(Constants.COMPRESSOR);
         intakeLifter = new DoubleSolenoid(Constants.INTAKE_LIFTER_A, Constants.INTAKE_LIFTER_B);
-        leftClimber = new DoubleSolenoid(Constants.LEFT_CLIMB_A, Constants.LEFT_CLIMB_B);
-        rightClimber = new DoubleSolenoid(Constants.RIGHT_CLIMB_A, Constants.RIGHT_CLIMB_B);
+        climber = new DoubleSolenoid(Constants.CLIMB_A, Constants.CLIMB_B);
+        // leftClimber = new DoubleSolenoid(Constants.LEFT_CLIMB_A, Constants.LEFT_CLIMB_B);
+        // rightClimber = new DoubleSolenoid(Constants.RIGHT_CLIMB_A, Constants.RIGHT_CLIMB_B);
     }
 
     public void init(){
@@ -38,13 +40,19 @@ public class Pneumatics extends SubsystemBase {
     }
 
     public void extendClimb(){
-        leftClimber.set(DoubleSolenoid.Value.kForward);
-        rightClimber.set(DoubleSolenoid.Value.kForward);
+        climber.set(DoubleSolenoid.Value.kForward);
+        // leftClimber.set(DoubleSolenoid.Value.kForward);
+        // rightClimber.set(DoubleSolenoid.Value.kForward);
     }
 
     public void retractClimb(){
-        leftClimber.set(DoubleSolenoid.Value.kReverse);
-        rightClimber.set(DoubleSolenoid.Value.kReverse);
+        climber.set(DoubleSolenoid.Value.kReverse);
+        // leftClimber.set(DoubleSolenoid.Value.kReverse);
+        // rightClimber.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void stop(){
+        compressor.stop();
     }
     
     // Put methods for controlling this subsystem

@@ -22,11 +22,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-=======
 // import frc.robot.Radar;
->>>>>>> c15a40ef2f7685a283f8803f61ccf413dd1b8932
 
 public class Drive extends SubsystemBase {
     

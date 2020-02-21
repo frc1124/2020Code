@@ -49,11 +49,9 @@ public final class Constants {
     
     public static final int COMPRESSOR = 0;
     public static final int INTAKE_LIFTER_A = 0;
-    public static final int INTAKE_LIFTER_B = 0;
-    public static final int LEFT_CLIMB_A = 0;
-    public static final int LEFT_CLIMB_B = 0;
-    public static final int RIGHT_CLIMB_A = 0;
-    public static final int RIGHT_CLIMB_B = 0;
+    public static final int INTAKE_LIFTER_B = 1;
+    public static final int CLIMB_A = 2;
+    public static final int CLIMB_B = 3;
     
 	
 }
