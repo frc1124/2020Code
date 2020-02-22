@@ -48,10 +48,10 @@ public final class Constants {
     public static final int LAUNCHER_CHANNEL_B = 5;
     
     public static final int COMPRESSOR = 0;
-    public static final int INTAKE_LIFTER_A = 0;
-    public static final int INTAKE_LIFTER_B = 1;
+    public static final int INTAKE_LIFTER_A = 1;
+    public static final int INTAKE_LIFTER_B = 0;
     public static final int CLIMB_A = 2;
-    public static final int CLIMB_B = 3;
+    public static final int CLIMB_B = 3;    
     
 	
 }

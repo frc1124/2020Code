@@ -3,11 +3,12 @@ package frc.robot.commands;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
 public class LowerIntake extends CommandBase{
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-  private Pneumatics pneumatics = new Pneumatics();
+  private Pneumatics pneumatics;
     public LowerIntake(Pneumatics pneumatics) {
         this.pneumatics = pneumatics;
         // Use addRequirements() here to declare pneumatics dependencies.

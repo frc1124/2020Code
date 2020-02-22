@@ -12,7 +12,7 @@ public class Hopper extends SubsystemBase{
 
     public Hopper(){
         hopperRoller = new TalonSRX(Constants.HOPPER_ROLLER);
-        hopperRoller.setNeutralMode(NeutralMode.Brake);
+        //hopperRoller.setNeutralMode(NeutralMode.Brake);
     }
 
     public void run(){

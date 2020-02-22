@@ -35,7 +35,8 @@ public class RobotContainer {
   private final Hopper hopper = new Hopper();
   private final Launcher launcher = new Launcher();
   private final DiscSpinner discspinner = new DiscSpinner();
- // private final Pneumatics pneumatics = new Pneumatics();
+  public final Pneumatics pneumatics = new Pneumatics(Robot.c);
+  private boolean isRetracted = true;
 
  
   public Command getTeleopDrive() {
@@ -71,17 +72,24 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
     getKey("Y").whileHeld(new SuccBallz(intake));
     getKey("X").whileHeld(new FeedBallz(hopper));
     getKey("A").whenPressed(new Launch(launcher));
-    getKey("LB").whileHeld(new SpinDisc(discspinner));
-    //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    //getKey("LB").whileHeld(new SpinDisc(discspinner));
+    // getKey("LB").whenPressed(() -> { 
+    //   isRetracted =  !isRetracted;
+    //   return isRetracted ? new RetractClimb(pneumatics): new ExtendClimb(pneumatics);
+      
+    // });
+    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    getKey("RB").whenPressed(new RetractClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy (ps. Rohan wrote that)
 
-    getKey("B").whenPressed(new Move(drive,48));
+    getKey("B").whenPressed(new LowerIntake(pneumatics));
   }
 
   /**

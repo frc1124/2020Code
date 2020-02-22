@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Pneumatics;
 
-public class ExtendClimb extends CommandBase{
+public class RetractClimb extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     
     private Pneumatics pneumatics;
     private boolean isExtended;
 
-    public ExtendClimb(Pneumatics p){
+    public RetractClimb(Pneumatics p){
         isExtended = false;
         pneumatics = p;
         addRequirements(pneumatics);
@@ -24,7 +24,7 @@ public class ExtendClimb extends CommandBase{
     @Override
     public void execute() {
         //pneumatics.extendClimb();
-        pneumatics.extendClimb();
+        pneumatics.retractClimb();
         // if (!(this.isExtended)){
         //     pneumatics.extendClimb();
         //     isExtended = true;

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorSensorV3;
@@ -34,7 +35,7 @@ public class DiscSpinner extends SubsystemBase{
         // This method will be called once per scheduler run
         Color detectedColor = m_colorSensor.getColor();
         ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-        return match.color;
+        return detectedColor;
     }
 
     public DiscSpinner(){
@@ -58,7 +59,34 @@ public class DiscSpinner extends SubsystemBase{
 
     @Override
     public void periodic(){
-        String value = "";
+        String value = "";        
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        // if(gameData.length() > 0)
+        // {
+        //     switch (gameData.charAt(0))
+        //     {
+        //         case 'B' :
+        //             value = "Blue";
+        //         break;
+        //         case 'G' :
+        //             value = "Green";
+        //         break;
+        //         case 'R' :
+        //             value = "Red";
+        //         break;
+        //         case 'Y' :
+        //             value = "Yellow";
+        //         break;
+        //         default :
+        //         //This is corrupt data
+        //         break;
+        //     }
+        // } else {
+        // //Code for no data received yet
+        // }
+
+       
         if (this.getColor() == Blue) {
             value = "Blue";
         } else if(this.getColor() == Green){

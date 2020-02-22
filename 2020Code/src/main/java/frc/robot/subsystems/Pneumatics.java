@@ -13,10 +13,10 @@ public class Pneumatics extends SubsystemBase {
     // private DoubleSolenoid rightClimber;
     // private DoubleSolenoid leftClimber;
     
-    public boolean running;
+    public boolean running = false;
     
-    public Pneumatics() {
-        compressor = new Compressor(Constants.COMPRESSOR);
+    public Pneumatics(Compressor c) {
+        compressor = c;
         intakeLifter = new DoubleSolenoid(Constants.INTAKE_LIFTER_A, Constants.INTAKE_LIFTER_B);
         climber = new DoubleSolenoid(Constants.CLIMB_A, Constants.CLIMB_B);
         // leftClimber = new DoubleSolenoid(Constants.LEFT_CLIMB_A, Constants.LEFT_CLIMB_B);
@@ -24,6 +24,7 @@ public class Pneumatics extends SubsystemBase {
     }
 
     public void init(){
+        compressor.setClosedLoopControl(false);
         compressor.start();
     }
     
@@ -52,6 +53,7 @@ public class Pneumatics extends SubsystemBase {
     }
 
     public void stop(){
+        //compressor.setClosedLoopControl(false);
         compressor.stop();
     }
     
