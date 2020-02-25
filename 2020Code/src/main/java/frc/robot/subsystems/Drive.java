@@ -72,8 +72,8 @@ public class Drive extends SubsystemBase {
         rightEncoder.setDistancePerPulse(2 * 3 * Math.PI / 2048);
 
         // pid controllers
-        fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
-        rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
+        fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F);
+        rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
 
         // assign slaves to master
         leftSlave.follow(leftMaster);

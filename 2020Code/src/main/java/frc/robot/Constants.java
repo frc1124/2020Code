@@ -29,10 +29,12 @@ public final class Constants {
     public static final double FWD_P = 1;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
+    public static final double FWD_F = 0;
 
     public static final double ROT_P = 0;
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
+    public static final double ROT_F = 0;
 
     public static final int TOP_ROLLER = 4;
 
