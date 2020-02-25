@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -71,8 +72,8 @@ public class Drive extends SubsystemBase {
         rightEncoder.setDistancePerPulse(2 * 3 * Math.PI / 2048);
 
         // pid controllers
-        fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D);
-        rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D);
+        fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F);
+        rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
 
         // assign slaves to master
         leftSlave.follow(leftMaster);
@@ -135,11 +136,14 @@ public class Drive extends SubsystemBase {
     }
     public boolean move(double distance) {
       
+
+      final double T = 0.1;
+      final double tollerance = 0.1;
       double s = fwdPID.calculate(getAvgDistance(), distance);
       if( s != 0 ) {
-        arcadeDrive(s,0);
-        return true;
-      } else return false;
+        arcadeDrive(MathUtil.clamp(s, -T, T),0);
+        return false;
+      } else return true;
     }
 
     public boolean turn(double angle) {
