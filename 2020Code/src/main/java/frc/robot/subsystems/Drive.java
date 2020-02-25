@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -135,11 +136,14 @@ public class Drive extends SubsystemBase {
     }
     public boolean move(double distance) {
       
+
+      final double T = 0.1;
+      final double tollerance = 0.1;
       double s = fwdPID.calculate(getAvgDistance(), distance);
       if( s != 0 ) {
-        arcadeDrive(s,0);
-        return true;
-      } else return false;
+        arcadeDrive(MathUtil.clamp(s, -T, T),0);
+        return false;
+      } else return true;
     }
 
     public boolean turn(double angle) {
