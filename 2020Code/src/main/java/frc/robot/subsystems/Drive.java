@@ -142,7 +142,7 @@ public class Drive extends SubsystemBase {
       final double T = 0.1;
       final double tolerance = 0.1;
       double s = fwdPID.calculate(getAvgDistance(), distance);
-      if( s != 0 ) {
+      if( Math.abs(s) > tolerance ) {
         arcadeDrive(MathUtil.clamp(s, -T, T),0);
         return false;
       } else return true;
