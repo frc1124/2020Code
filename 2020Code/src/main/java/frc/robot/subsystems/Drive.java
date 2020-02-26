@@ -117,6 +117,8 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
         SmartDashboard.putNumber("L Encoder R", leftEncoder.getRaw());
         SmartDashboard.putNumber("R Encoder R", rightEncoder.getRaw());
+        SmartDashboard.putNumber("Left Velocity", leftEncoder.getRate());
+        SmartDashboard.putNumber("Right Velocity", rightEncoder.getRate());
     }
 
     public double getDistance() {
@@ -138,7 +140,7 @@ public class Drive extends SubsystemBase {
       
 
       final double T = 0.1;
-      final double tollerance = 0.1;
+      final double tolerance = 0.1;
       double s = fwdPID.calculate(getAvgDistance(), distance);
       if( s != 0 ) {
         arcadeDrive(MathUtil.clamp(s, -T, T),0);

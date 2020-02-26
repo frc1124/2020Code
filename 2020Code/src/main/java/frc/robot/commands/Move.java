@@ -8,11 +8,12 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
-
 /**
  * An example command that uses an example subsystem.
  */
@@ -27,10 +28,12 @@ public class Move extends CommandBase {
   private double initialDistance;
   private double distance;
   private boolean isFinished = false;
+ 
 
   public Move(Drive drive, double distance) {
     this.distance = distance;
     this.drive = drive;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
 
@@ -46,7 +49,9 @@ public class Move extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     isFinished = drive.move(initialDistance + distance);
+
   }
 
   // Called once the command ends or is interrupted.

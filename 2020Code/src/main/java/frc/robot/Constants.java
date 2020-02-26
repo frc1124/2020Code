@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -26,10 +26,17 @@ public final class Constants {
 
     public static final int ARCADE_STICK = 0;
     
+    private final double maxCIMVelocity = 5330;
+    private final double gearRatio = 10.71;
+
+    private final double velocityMax = (maxCIMVelocity * Math.PI * 6)/gearRatio;
+    private final double vMax = .55487;
+    private final double k = velocityMax/vMax;
+
     public static final double FWD_P = 1;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
-    public static final double FWD_F = 0;
+    public static final double FWD_F = 281.770809;
 
     public static final double ROT_P = 0;
     public static final double ROT_I = 0;
