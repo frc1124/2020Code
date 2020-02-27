@@ -113,9 +113,9 @@ public class DiscSpinner extends SubsystemBase{
             value = "Red";
         }
         
-        SmartDashboard.putNumber("Color red", this.getColor().red);
-        SmartDashboard.putNumber("COlor blue", this.getColor().blue);
-        SmartDashboard.putNumber("Color green", this.getColor().green);
+        SmartDashboard.putNumber("Color red", m_colorSensor.getRed());
+        SmartDashboard.putNumber("COlor blue", m_colorSensor.getBlue());
+        SmartDashboard.putNumber("Color green", m_colorSensor.getGreen());
 
         SmartDashboard.putString("Color",  value);
     }
