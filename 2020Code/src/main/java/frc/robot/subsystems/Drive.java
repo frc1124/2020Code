@@ -74,6 +74,7 @@ public class Drive extends SubsystemBase {
         // pid controllers
         fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F);
         rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
+        rotPID.setSetpoint(0);
 
         // assign slaves to master
         leftSlave.follow(leftMaster);
@@ -138,11 +139,12 @@ public class Drive extends SubsystemBase {
     }
     public boolean move(double distance) {
       
-
+      // returns isFinished
       final double T = 0.1;
       final double tolerance = 0.1;
+      fwdPID.setSetpoint(distance);
       double s = fwdPID.calculate(getAvgDistance(), distance);
-      if( s != 0 ) {
+      if( Math.abs(s) >= tolerance ) {
         arcadeDrive(MathUtil.clamp(s, -T, T),0);
         return false;
       } else return true;
