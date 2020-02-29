@@ -24,11 +24,11 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import frc.robot.Radar;
+import frc.robot.Radar;
 
 public class Drive extends SubsystemBase {
     
-    private SerialPort distanceSensor;
+    // private SerialPort distanceSensor;
     // private Radar radar;
 
     private DifferentialDrive drive;
@@ -96,7 +96,7 @@ public class Drive extends SubsystemBase {
       leftEncoder.reset();
       rightEncoder.reset();
     }
-    
+
     public AHRS getNavxInstance() {
       return navx;
     }
@@ -114,6 +114,7 @@ public class Drive extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         // 28:50 ratio
+        // SmartDashboard.putNumber("Radar Reading", radar.read());F
         SmartDashboard.putNumber("L Encoder D", leftEncoder.getDistance());
         SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
         SmartDashboard.putNumber("L Encoder R", leftEncoder.getRaw());

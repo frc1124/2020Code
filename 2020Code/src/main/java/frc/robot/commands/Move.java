@@ -11,6 +11,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
@@ -40,6 +41,12 @@ public class Move extends CommandBase {
 
     this.initialDistance = drive.getAvgDistance();
     fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F);
+
+    // fwdPID = new PIDController(SmartDashboard.getNumber("FWD_P", 0),
+    //                            SmartDashboard.getNumber("FWD_I", 0),
+    //                            SmartDashboard.getNumber("FWD_D", 0),
+    //                            SmartDashboard.getNumber("FWD_F", Constants.FWD_F)
+    // );
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
