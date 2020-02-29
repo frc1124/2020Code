@@ -40,6 +40,9 @@ public class Robot extends TimedRobot {
     pneumatics.init();
     //c.setClosedLoopControl(true);
     c.start();
+    // SmartDashboard.putNumber("FWD_P", 0);
+    // SmartDashboard.putNumber("FWD_I", 0);
+    // SmartDashboard.putNumber("FWD_D", 0);
   }
 
   /**

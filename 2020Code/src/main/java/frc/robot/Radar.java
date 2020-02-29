@@ -1,11 +1,12 @@
+package frc.robot;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Radar {
     private int distance;
     private SerialPort sensor;
     public Radar() {
-        // sensor = new SerialPort(1200, SerialPort.Port.kOnboard);
-
+        sensor = new SerialPort(1200, SerialPort.Port.kOnboard);
     }
 
     public int getLastRead() {
@@ -23,6 +24,7 @@ public class Radar {
             distance = Integer.parseInt(rawOutput.substring(1, 5));
         }
         sensor.flush();
+        
         return distance;
     }
 

@@ -34,8 +34,27 @@ public class DiscSpinner extends SubsystemBase{
     public Color getColor() {
         // This method will be called once per scheduler run
         Color detectedColor = m_colorSensor.getColor();
-        ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-        return detectedColor;
+        // m_colorMatcher.addColorMatch(Color.kBlue);
+        // m_colorMatcher.addColorMatch(Color.kGreen);
+        // m_colorMatcher.addColorMatch(Color.kRed);
+        // m_colorMatcher.addColorMatch(Color.kYellow);
+        // ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+        double r = (double)m_colorSensor.getRed();
+        double g = (double)m_colorSensor.getGreen();
+        double b = (double) m_colorSensor.getBlue();
+        double mag = r + g + b;
+
+        return new Color(r / mag , g / mag , b / mag );
+    }
+    public Color matchColor() {
+    
+        m_colorMatcher.addColorMatch(Color.kBlue);
+        m_colorMatcher.addColorMatch(Color.kGreen);
+        m_colorMatcher.addColorMatch(Color.kRed);
+        m_colorMatcher.addColorMatch(Color.kYellow);
+        ColorMatchResult match = m_colorMatcher.matchClosestColor(this.getColor());
+        return match.color;
     }
 
     public DiscSpinner(){
@@ -43,10 +62,7 @@ public class DiscSpinner extends SubsystemBase{
         //spinner.setNeutralMode(NeutralMode.Brake);
         m_colorSensor = new ColorSensorV3(i2cPort);
         m_colorMatcher = new ColorMatch();
-        m_colorMatcher.addColorMatch(Blue);
-        m_colorMatcher.addColorMatch(Green);
-        m_colorMatcher.addColorMatch(Red);
-        m_colorMatcher.addColorMatch(Yellow);
+
     }
 
     public void run() {
@@ -62,6 +78,7 @@ public class DiscSpinner extends SubsystemBase{
         String value = "";        
         String gameData;
         gameData = DriverStation.getInstance().getGameSpecificMessage();
+        
         // if(gameData.length() > 0)
         // {
         //     switch (gameData.charAt(0))
@@ -85,18 +102,21 @@ public class DiscSpinner extends SubsystemBase{
         // } else {
         // //Code for no data received yet
         // }
-
        
-        if (this.getColor() == Blue) {
+        if (this.matchColor().equals(Color.kBlue)) {
             value = "Blue";
-        } else if(this.getColor() == Green){
+        } else if(this.matchColor().equals(Color.kGreen)){
             value = "Green";
-        } else if (this.getColor() == Yellow){
+        } else if (this.matchColor().equals(Color.kYellow)){
             value = "Yellow";
-        }else if(this.getColor() == Red){
+        } else if(this.matchColor().equals(Color.kRed)){
             value = "Red";
         }
         
-        SmartDashboard.putString("Color", value);
+        SmartDashboard.putNumber("Color red", m_colorSensor.getRed());
+        SmartDashboard.putNumber("COlor blue", m_colorSensor.getBlue());
+        SmartDashboard.putNumber("Color green", m_colorSensor.getGreen());
+
+        SmartDashboard.putString("Color",  value);
     }
 }
