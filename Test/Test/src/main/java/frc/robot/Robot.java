@@ -1,3 +1,5 @@
+
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -11,6 +13,10 @@ import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * Sample program displaying the value of a quadrature encoder on the SmartDashboard. Quadrature
@@ -25,7 +31,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * autonomous mode.
  */
 public class Robot extends TimedRobot {
-  /**
+  private double percent = 0;
+  private TalonSRX leftMaster = new TalonSRX(5); 
+  private TalonSRX leftSlave = new TalonSRX(0);
+  private TalonSRX rightMaster = new TalonSRX(1); 
+  private TalonSRX rightSlave = new TalonSRX(2);
+  
+  private Encoder rightEncoder = new Encoder(0,1);
+  private int ENC_VALUE = 0;
+
+  /** 
    * The Encoder object is constructed with 4 parameters, the last two being optional. The first two
    * parameters (1, 2 in this case) refer to the ports on the roboRIO which the encoder uses.
    * Because a quadrature encoder has two signal wires, the signal from two DIO ports on the roboRIO
@@ -35,20 +50,33 @@ public class Robot extends TimedRobot {
    * defaults to k4X. Faster (k4X) encoding gives greater positional precision but more noise in the
    * rate.
    */
-  private final Encoder m_encoder =
-      new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
-        private final Encoder m_encoder2 =
-      new Encoder(8, 9, false, CounterBase.EncodingType.k4X);
+  
+
+  
+
+  
+  // private final Encoder m_encoder =
+  //     new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
+  //       private final Encoder m_encoder2 =
+  //     new Encoder(8, 9, false, CounterBase.EncodingType.k4X);
 
   @Override
   public void robotInit() {
+    rightEncoder.reset();
+    
+    ENC_VALUE = rightEncoder.get();
     /*
      * Defines the number of samples to average when determining the rate.
      * On a quadrature encoder, values range from 1-255;
      * larger values result in smoother but potentially
      * less accurate rates than lower values.
      */
-    m_encoder.setSamplesToAverage(5);
+
+
+    // rightMaster.set(ControlMode.percent, percent);
+    // rightSlave.set(ControlMode.percent, percent);
+
+    // m_encoder.setSamplesToAverage(5);
 
     /*
      * Defines how far the mechanism attached to the encoder moves per pulse. In
@@ -56,7 +84,7 @@ public class Robot extends TimedRobot {
      * attached to a 3 inch diameter (1.5inch radius) wheel,
      * and that we want to measure distance in inches.
      */
-    m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
+    // m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
 
     /*
      * Defines the lowest rate at which the encoder will
@@ -65,14 +93,20 @@ public class Robot extends TimedRobot {
      * where distance refers to the units of distance
      * that you are using, in this case inches.
      */
-    m_encoder.setMinRate(1.0);
+    // m_encoder.setMinRate(1.0);
   }
 
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("Encoder Distance", m_encoder.getDistance());
-    SmartDashboard.putNumber("Encoder Rate", m_encoder.getRate());
-    SmartDashboard.putNumber("Encoder2 Distance", m_encoder2.getDistance());
-    SmartDashboard.putNumber("Encoder2 Rate", m_encoder2.getRate());
+    // SmartDashboard.putNumber("Encoder Distance", m_encoder.getDistance());
+    // SmartDashboard.putNumber("Encoder Rate", m_encoder.getRate());
+    // SmartDashboard.putNumber("Encoder2 Distance", m_encoder2.getDistance());
+    // SmartDashboard.putNumber("Encoder2 Rate", m_encoder2.getRate());
+    SmartDashboard.putNumber("percent", percent);
+    SmartDashboard.putNumber("enc", rightEncoder.get());
+    // left is 1.464V (+ 12 V) 1.9558?
+    // right is 1.7665V (+ 12 V) 
+    if(rightEncoder.get() == ENC_VALUE) percent += 0.0001;
+    leftMaster.set(ControlMode.PercentOutput, percent);
   }
 }

@@ -26,17 +26,21 @@ public final class Constants {
 
     public static final int ARCADE_STICK = 0;
     
-    private final double maxCIMVelocity = 5330;
+    private final double maxCIMVelocity = 5330/60;
     private final double gearRatio = 10.71;
 
     private final double velocityMax = (maxCIMVelocity * Math.PI * 6)/gearRatio;
-    private final double vMax = .55487;
-    private final double k = velocityMax/vMax;
+    private final double vMax = 12;
+    private final double k = vMax/velocityMax;
 
     public static final double FWD_P = 0.01;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
-    public static final double FWD_F = 13;
+    public static final double FWD_F_R = .0881;
+    public static final double FWD_F_L = .0862;
+
+
+
 
     public static final double ROT_P = 0;
     public static final double ROT_I = 0;

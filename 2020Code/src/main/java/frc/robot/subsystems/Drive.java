@@ -32,15 +32,16 @@ public class Drive extends SubsystemBase {
     // private Radar radar;
 
     private DifferentialDrive drive;
-    private WPI_TalonSRX leftMaster;
+    public WPI_TalonSRX leftMaster;
     private WPI_TalonSRX leftSlave;
-    private WPI_TalonSRX rightMaster;
+    public WPI_TalonSRX rightMaster;
     private WPI_TalonSRX rightSlave;
     
-    private Encoder leftEncoder;
-    private Encoder rightEncoder;
+    public Encoder leftEncoder;
+    public Encoder rightEncoder;
 
-    private PIDController fwdPID;
+    private PIDController fwdRPID;
+    private PIDController fwdLPID;
     private PIDController rotPID;
 
     private AHRS navx;
@@ -61,6 +62,9 @@ public class Drive extends SubsystemBase {
         leftEncoder = new Encoder(Constants.LEFT_CHANNEL_A, Constants.LEFT_CHANNEL_B);
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
 
+        leftEncoder.setReverseDirection(true);
+        rightEncoder.setReverseDirection(true);
+
         // set modes to break
         leftMaster.setNeutralMode(NeutralMode.Brake);
         rightMaster.setNeutralMode(NeutralMode.Brake);
@@ -72,7 +76,9 @@ public class Drive extends SubsystemBase {
         rightEncoder.setDistancePerPulse(2 * 3 * Math.PI / 2048);
 
         // pid controllers
-        fwdPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F);
+        fwdRPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F_R);
+        fwdLPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F_L);
+
         rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
         rotPID.setSetpoint(0);
 
@@ -134,7 +140,7 @@ public class Drive extends SubsystemBase {
         
         double avgEncoderDistance = (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
         arcadeDrive(
-          fwdPID.calculate(avgEncoderDistance, distance),
+          fwdRPID.calculate(avgEncoderDistance, distance),
           rotPID.calculate(navx.getYaw(), angle)
         );
     }
@@ -143,8 +149,9 @@ public class Drive extends SubsystemBase {
       // returns isFinished
       final double T = 0.1;
       final double tolerance = 0.1;
-      fwdPID.setSetpoint(distance);
-      double s = fwdPID.calculate(getAvgDistance(), distance);
+      fwdRPID.setSetpoint(distance);
+      double s = fwdRPID.calculate(rightEncoder.getDistance(), distance);
+      double l = fwdLPID.calculate(leftEncoder.getDistance(), distance);
       if( Math.abs(s) > tolerance ) {
         arcadeDrive(MathUtil.clamp(s, -T, T),0);
         return false;
