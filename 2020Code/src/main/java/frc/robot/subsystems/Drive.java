@@ -63,7 +63,7 @@ public class Drive extends SubsystemBase {
         rightEncoder = new Encoder(Constants.RIGHT_CHANNEL_A, Constants.RIGHT_CHANNEL_B);
 
         leftEncoder.setReverseDirection(true);
-        rightEncoder.setReverseDirection(true);
+        rightEncoder.setReverseDirection(false);
 
         // set modes to break
         leftMaster.setNeutralMode(NeutralMode.Brake);
@@ -127,6 +127,7 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("R Encoder R", rightEncoder.getRaw());
         SmartDashboard.putNumber("Left Velocity", leftEncoder.getRate());
         SmartDashboard.putNumber("Right Velocity", rightEncoder.getRate());
+        SmartDashboard.putNumber("Average Distance", this.getAvgDistance());
     }
 
     public double getDistance() {

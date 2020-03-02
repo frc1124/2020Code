@@ -33,7 +33,7 @@ public final class Constants {
     private final double vMax = 12;
     private final double k = vMax/velocityMax;
 
-    public static final double FWD_P = 0.01;
+    public static final double FWD_P = 0.0125;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
     public static final double FWD_F_R = .0881;
