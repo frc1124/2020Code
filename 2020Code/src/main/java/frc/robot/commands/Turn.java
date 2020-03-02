@@ -31,7 +31,7 @@ public class Turn extends CommandBase {
   private double initialAngle;
   private double angle;
   private boolean isFinished = false;
-  private final double TOLERANCE = .5;
+  private final double TOLERANCE = 5;
  
  
 
