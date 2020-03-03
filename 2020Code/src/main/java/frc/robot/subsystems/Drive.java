@@ -80,6 +80,9 @@ public class Drive extends SubsystemBase {
         fwdLPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F_L);
 
         rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
+        // rotPID.setInputRange(-180, 180);
+        // rotPID.setOutputRange(-1, 1);
+        // rotPID.setContinous(true);
         rotPID.setSetpoint(0);
 
         // assign slaves to master

@@ -78,13 +78,13 @@ public class RobotContainer {
     getKey("Y").whileHeld(new SuccBallz(intake));
     getKey("X").whileHeld(new FeedBallz(hopper));
     getKey("A").whenPressed(new Launch(launcher));
-    getKey("LB").whileHeld(new SpinDisc(discspinner));
+    //getKey("LB").whileHeld(new SpinDisc(discspinner));
     // getKey("LB").whenPressed(() -> { 
     //   isRetracted =  !isRetracted;
     //   return isRetracted ? new RetractClimb(pneumatics): new ExtendClimb(pneumatics);
       
     // });
-    //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
     getKey("RB").whenPressed(new RetractClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy (ps. Rohan wrote that)

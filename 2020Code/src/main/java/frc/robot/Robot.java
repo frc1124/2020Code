@@ -12,7 +12,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -85,6 +88,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    // private final Drive drive = new Drive();
+    // private final Hopper hopper = new Hopper();
+    // private final Launcher launcher = new Launcher();
+
+    // Move(drive, 120);
+    // Turn(drive, 180);
+    // Launch(launcher);
+    // Timer.delay(4.0);	
+    // FeedBallz(hopper);
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // // schedule the autonomous command (example)

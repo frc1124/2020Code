@@ -8,7 +8,7 @@ import frc.robot.Constants;
 
 public class Hopper extends SubsystemBase{
     private TalonSRX hopperRoller;
-    private final double throttle = 1;
+    private final double throttle = .5;
 
     public Hopper(){
         hopperRoller = new TalonSRX(Constants.HOPPER_ROLLER);
