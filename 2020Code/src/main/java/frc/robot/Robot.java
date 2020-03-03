@@ -86,17 +86,22 @@ public class Robot extends TimedRobot {
   /**
    * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
    */
+  
+  // private final Drive drive;
+  // private final Hopper hopper;
+  // private final Launcher launcher;
+  
   @Override
   public void autonomousInit() {
-    // private final Drive drive = new Drive();
-    // private final Hopper hopper = new Hopper();
-    // private final Launcher launcher = new Launcher();
+    // drive = new Drive();
+    // hopper = new Hopper();
+    // launcher = new Launcher();
 
-    // Move(drive, 120);
-    // Turn(drive, 180);
-    // Launch(launcher);
-    // Timer.delay(4.0);	
-    // FeedBallz(hopper);
+    // CommandScheduler.getInstance().schedule(new Turn(drive, 180));
+    // CommandScheduler.getInstance().schedule(new Move(drive, 120));
+    // CommandScheduler.getInstance().schedule(new Launch(launcher));
+    // // timer.delay(2.0);	
+    // CommandScheduler.getInstance().schedule(new FeedBallz(hopper));
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // // schedule the autonomous command (example)

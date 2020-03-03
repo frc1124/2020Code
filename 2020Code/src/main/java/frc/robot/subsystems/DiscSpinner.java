@@ -2,15 +2,19 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -22,13 +26,14 @@ public class DiscSpinner extends SubsystemBase{
 
     private final ColorMatch m_colorMatcher;
 
-    public final Color Blue = ColorMatch.makeColor(0, 0, 1);
-    public final Color Green = ColorMatch.makeColor(0, 1, 0);
-    public final Color Red = ColorMatch.makeColor(1, 0, 0);
-    public final Color Yellow = ColorMatch.makeColor(1, 1, 0);
+    public final Color Blue = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    public final Color Green = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    public final Color Red = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    public final Color Yellow = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    public final Encoder discEncoder;
 
-    private WPI_TalonSRX spinner;
-    private final double THROTTLE = 1; 
+    private VictorSPX spinner;
+    private final double THROTTLE = .25; 
 
     //@Override
     public Color getColor() {
@@ -49,28 +54,29 @@ public class DiscSpinner extends SubsystemBase{
     }
     public Color matchColor() {
     
-        m_colorMatcher.addColorMatch(Color.kBlue);
-        m_colorMatcher.addColorMatch(Color.kGreen);
-        m_colorMatcher.addColorMatch(Color.kRed);
-        m_colorMatcher.addColorMatch(Color.kYellow);
+        m_colorMatcher.addColorMatch(Blue);
+        m_colorMatcher.addColorMatch(Green);
+        m_colorMatcher.addColorMatch(Red);
+        m_colorMatcher.addColorMatch(Yellow);
         ColorMatchResult match = m_colorMatcher.matchClosestColor(this.getColor());
         return match.color;
     }
 
     public DiscSpinner(){
-        spinner = new WPI_TalonSRX(Constants.DISC_ROLLER);
+        spinner = new VictorSPX(Constants.DISC_ROLLER);
         //spinner.setNeutralMode(NeutralMode.Brake);
         m_colorSensor = new ColorSensorV3(i2cPort);
         m_colorMatcher = new ColorMatch();
+        discEncoder = new Encoder(6,7);
 
     }
 
     public void run() {
-        spinner.set(THROTTLE);
+        spinner.set(ControlMode.PercentOutput,THROTTLE);
     }
 
     public void stop() {
-        spinner.set(0);
+        spinner.set(ControlMode.PercentOutput,0);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class DiscSpinner extends SubsystemBase{
         String value = "";        
         String gameData;
         gameData = DriverStation.getInstance().getGameSpecificMessage();
-        
+        SmartDashboard.putNumber("Spin Encoder", discEncoder.getDistance());
         // if(gameData.length() > 0)
         // {
         //     switch (gameData.charAt(0))
@@ -103,13 +109,13 @@ public class DiscSpinner extends SubsystemBase{
         // //Code for no data received yet
         // }
        
-        if (this.matchColor().equals(Color.kBlue)) {
+        if (this.matchColor().equals(Blue)) {
             value = "Blue";
-        } else if(this.matchColor().equals(Color.kGreen)){
+        } else if(this.matchColor().equals(Green)){
             value = "Green";
-        } else if (this.matchColor().equals(Color.kYellow)){
+        } else if (this.matchColor().equals(Yellow)){
             value = "Yellow";
-        } else if(this.matchColor().equals(Color.kRed)){
+        } else if(this.matchColor().equals(Red)){
             value = "Red";
         }
         

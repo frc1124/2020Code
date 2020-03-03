@@ -31,7 +31,7 @@ public class Turn extends CommandBase {
   private double initialAngle;
   private double angle;
   private boolean isFinished = false;
-  private final double TOLERANCE = 5;
+  private final double TOLERANCE = 2;
  
  
 
@@ -41,6 +41,7 @@ public class Turn extends CommandBase {
 
     this.initialAngle = drive.getNavxInstance().getYaw();
     desiredAngle = (initialAngle + angle)%180;
+
     // while(desiredAngle > 180) {
     //   desiredAngle -= 360;
     // }
@@ -72,7 +73,7 @@ public class Turn extends CommandBase {
   @Override
   public void execute() {
     double rot = rotPID.calculate(Math.abs(drive.getNavxInstance().getYaw()), desiredAngle);
-    drive.arcadeDrive(0, rot);
+    drive.arcadeDrive(0, rot/2);
    
 
   }

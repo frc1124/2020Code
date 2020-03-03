@@ -42,7 +42,7 @@ public final class Constants {
 
 
 
-    public static final double ROT_P = .4;
+    public static final double ROT_P = .01;
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
     public static final double ROT_F = .05;
