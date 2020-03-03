@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Intake extends SubsystemBase{
     private VictorSPX intakeRoller;
-    private final double THROTTLE = -1;
+    private final double THROTTLE = -.65;
     
     public Intake(){
         intakeRoller = new VictorSPX(Constants.INTAKE_ROLLER);

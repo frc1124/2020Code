@@ -42,10 +42,10 @@ public final class Constants {
 
 
 
-    public static final double ROT_P = 0;
+    public static final double ROT_P = .1;
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
-    public static final double ROT_F = 0;
+    public static final double ROT_F = .05;
 
     public static final int TOP_ROLLER = 4;
 

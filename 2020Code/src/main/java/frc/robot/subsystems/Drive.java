@@ -128,6 +128,9 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("Left Velocity", leftEncoder.getRate());
         SmartDashboard.putNumber("Right Velocity", rightEncoder.getRate());
         SmartDashboard.putNumber("Average Distance", this.getAvgDistance());
+        SmartDashboard.putNumber("Angle", navx.getYaw());
+        double rot = rotPID.calculate(navx.getYaw(), 180);
+        SmartDashboard.putNumber("Rot", rot);
     }
 
     public double getDistance() {

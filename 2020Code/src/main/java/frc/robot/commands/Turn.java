@@ -40,13 +40,13 @@ public class Turn extends CommandBase {
     this.drive = drive;
 
     this.initialAngle = drive.getNavxInstance().getYaw();
-    desiredAngle = initialAngle + angle;
-    while(desiredAngle > 180) {
-      desiredAngle -= 180;
-    }
-    while(desiredAngle < -180) {
-      desiredAngle += 180;
-    }
+    desiredAngle = (initialAngle + angle)%180;
+    // while(desiredAngle > 180) {
+    //   desiredAngle -= 360;
+    // }
+    // while(desiredAngle < -180) {
+    //   desiredAngle += 360;
+    // }
    
     rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
 
@@ -64,18 +64,19 @@ public class Turn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initialAngle = drive.getNavxInstance().getYaw();
+   // initialAngle = drive.getNavxInstance().getYaw();
     rotPID.setSetpoint(angle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rot = rotPID.calculate(drive.getNavxInstance().getYaw(), desiredAngle);
+    double rot = rotPID.calculate(Math.abs(drive.getNavxInstance().getYaw()), desiredAngle);
     drive.arcadeDrive(0, rot);
-    // MathUtil.clamp(lSpeed, -THROTTLE, THROTTLE,0);
-    // MathUtil.clamp(rSpeed , -THROTTLE, THROTTLE,0);
+   
+
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
