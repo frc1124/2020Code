@@ -34,6 +34,7 @@ public class DiscSpinner extends SubsystemBase{
 
     private VictorSPX spinner;
     private final double THROTTLE = .25; 
+    private double distance;
 
     //@Override
     public Color getColor() {
@@ -68,11 +69,26 @@ public class DiscSpinner extends SubsystemBase{
         m_colorSensor = new ColorSensorV3(i2cPort);
         m_colorMatcher = new ColorMatch();
         discEncoder = new Encoder(6,7);
-
+        distance = 0;
     }
 
+     public DiscSpinner(int Distance){
+        spinner = new VictorSPX(Constants.DISC_ROLLER);
+        //spinner.setNeutralMode(NeutralMode.Brake);
+        m_colorSensor = new ColorSensorV3(i2cPort);
+        m_colorMatcher = new ColorMatch();
+        discEncoder = new Encoder(6,7);
+        distance = 0;
+    }
+
+
     public void run() {
-        spinner.set(ControlMode.PercentOutput,THROTTLE);
+        // if (Distance == 0){
+        //     spinner.set(ControlMode.PercentOutput,THROTTLE);
+        // } else if (discEncoder.getDistance() <= distance){
+        //     spinner.set(ControlMode.PercentOutput,THROTTLE);
+        // }
+        
     }
 
     public void stop() {

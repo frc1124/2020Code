@@ -13,20 +13,31 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Launcher extends SubsystemBase{
     private TalonSRX launchRoller;
-    private final double THROTTLE = 1;
-    // private Encoder encoder;
-    private DutyCycleEncoder encoder;
+    // public double THROTTLE;
+    private Encoder encoder;
+    // private DutyCycleEncoder encoder;
     
     public Launcher(){
         launchRoller = new TalonSRX(Constants.TOP_ROLLER);
         launchRoller.setNeutralMode(NeutralMode.Brake);
-        // encoder = new Encoder(Constants.LAUNCHER_CHANNEL_A, Constants.LAUNCHER_CHANNEL_B);
-        // encoder.setDistancePerPulse(8192);
-        encoder = new DutyCycleEncoder(5);
-        encoder.setDistancePerRotation(1);
+        encoder = new Encoder(Constants.LAUNCHER_CHANNEL_A, Constants.LAUNCHER_CHANNEL_B);
+        encoder.setDistancePerPulse(8192);
+        // encoder = new DutyCycleEncoder(5);
+        //encoder.setDistancePerRotation(1);
+        // THROTTLE = 1;
     }
     
-    public void run() {
+    // public Launcher(double throttle){
+    //     launchRoller = new TalonSRX(Constants.TOP_ROLLER);
+    //     launchRoller.setNeutralMode(NeutralMode.Brake);
+    //     encoder = new Encoder(Constants.LAUNCHER_CHANNEL_A, Constants.LAUNCHER_CHANNEL_B);
+    //     // encoder.setDistancePerPulse(8192);
+    //     // encoder = new DutyCycleEncoder(5);
+    //    // encoder.setDistancePerRotation(1);
+    //     // THROTTLE = throttle;
+    // }
+
+    public void run(double THROTTLE) {
         launchRoller.set(ControlMode.PercentOutput, THROTTLE);
     }
     public void stop() {

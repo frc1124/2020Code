@@ -9,11 +9,21 @@ public class Launch extends CommandBase{
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   private Launcher launcher;
+  private double throttle;
     public Launch(Launcher l) {
         launcher = l;
         // Use addRequirements() here to declare launcher dependencies.
         addRequirements(launcher);
       }
+
+    public Launch(Launcher l, double throttle) {
+      launcher = l;
+      this.throttle = throttle;
+      // Use addRequirements() here to declare launcher dependencies.
+      addRequirements(launcher);
+      
+    }
+
     
       // Called when the command is initially scheduled.
       @Override
@@ -24,7 +34,7 @@ public class Launch extends CommandBase{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-          launcher.run();
+          launcher.run(throttle);
       }
     
       // Called once the command ends or is interrupted.

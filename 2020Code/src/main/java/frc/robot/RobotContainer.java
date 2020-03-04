@@ -31,8 +31,10 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private static final Joystick j = new Joystick(Constants.ARCADE_STICK); // Creates a joystick on port 1
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, j);
-  private final Intake intake = new Intake();
+  private final Intake intake = new Intake(-1);
+  private final Intake intake2 = new Intake(-.25);
   private final Hopper hopper = new Hopper();
+  private final Hopper hopper2  =new Hopper(-.5);
   private final Launcher launcher = new Launcher();
   private final DiscSpinner discspinner = new DiscSpinner();
   public final Pneumatics pneumatics = new Pneumatics(Robot.c);
@@ -76,22 +78,25 @@ public class RobotContainer {
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
     getKey("Y").whileHeld(new SuccBallz(intake));
+    getKey("RB").whileHeld(new SuccBallz(intake2));
     getKey("X").whileHeld(new FeedBallz(hopper));
-    getKey("A").whenPressed(new Launch(launcher));
+    getKey("A").toggleWhenPressed(new Launch(launcher, 1), true);
+  
     //getKey("LB").whileHeld(new SpinDisc(discspinner));
-    // getKey("LB").whenPressed(() -> { 
-    //   isRetracted =  !isRetracted;
-    //   return isRetracted ? new RetractClimb(pneumatics): new ExtendClimb(pneumatics);
-      
-    // });
-    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
-    getKey("RB").whenPressed(new RetractClimb(pneumatics));
+    //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    //getKey("RB").whenPressed(new RetractClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy (ps. Rohan wrote that)
-    getKey("B").whileHeld(new SpinDisc(discspinner));
-    getKey("Back").whenPressed(new Move(drive, 132));
+    //getKey("B").whileHeld(new SpinDisc(discspinner));
+    // getKey("Back").whenPressed(new Move(drive, 132));
     //getKey("B").whenPressed(new Turn(drive, 90));
+    getKey("B").whileHeld(new FeedBallz(hopper2));
+    getKey("Back").toggleWhenPressed(new Launch(launcher, -1), true);
   }
+
+
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

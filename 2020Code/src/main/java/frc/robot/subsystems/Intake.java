@@ -11,11 +11,18 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Intake extends SubsystemBase{
     private VictorSPX intakeRoller;
-    private final double THROTTLE = -.5;
+    private double THROTTLE;
     
     public Intake(){
         intakeRoller = new VictorSPX(Constants.INTAKE_ROLLER);
         intakeRoller.setNeutralMode(NeutralMode.Brake);
+        THROTTLE = .5;
+    }
+
+    public Intake(double throttle){
+        intakeRoller = new VictorSPX(Constants.INTAKE_ROLLER);
+        intakeRoller.setNeutralMode(NeutralMode.Brake);
+        THROTTLE = throttle;
     }
     
     public void run() {

@@ -26,11 +26,11 @@ public class SpinDisc extends CommandBase{
 
     //@Override
 
-    public void end(){
+    public void end(boolean interrupted){
         discspinner.stop();
     }
 
-    @Override
+    //@Override
     protected void interrupted(){
         discspinner.stop();
     }

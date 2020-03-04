@@ -8,11 +8,18 @@ import frc.robot.Constants;
 
 public class Hopper extends SubsystemBase{
     private TalonSRX hopperRoller;
-    private final double throttle = .5;
+    private final double throttle;
 
     public Hopper(){
         hopperRoller = new TalonSRX(Constants.HOPPER_ROLLER);
         //hopperRoller.setNeutralMode(NeutralMode.Brake);
+        throttle = .5;
+    }
+
+    public Hopper(double throttle){
+        hopperRoller = new TalonSRX(Constants.HOPPER_ROLLER);
+        //hopperRoller.setNeutralMode(NeutralMode.Brake);
+        this.throttle = throttle;
     }
 
     public void run(){
