@@ -66,5 +66,6 @@ public final class Constants {
     public static final int CLIMB_A = 2;
     public static final int CLIMB_B = 3;    
     
+    public static final int LIGHT = 0;
 	
 }
