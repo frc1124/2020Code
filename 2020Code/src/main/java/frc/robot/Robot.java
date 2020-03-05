@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.commands.*;
@@ -29,6 +31,13 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private Pneumatics pneumatics;
   public static Compressor c;
+  public static Timer timer;
+  public static Launcher launcher;
+  public static Drive drive;
+  public static Hopper hopper;
+  public static Intake intake;
+  public static DiscSpinner discspinner;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -39,13 +48,15 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    pneumatics = m_robotContainer.pneumatics;
+    pneumatics = RobotContainer.pneumatics;
+    drive = RobotContainer.drive;
+    launcher = RobotContainer.launcher;
+    intake = RobotContainer.intake;
+    discspinner = RobotContainer.discspinner;
+    hopper = RobotContainer.hopper;
+    timer = new Timer();
     pneumatics.init();
-    //c.setClosedLoopControl(true);
     c.start();
-    // SmartDashboard.putNumber("FWD_P", 0);
-    // SmartDashboard.putNumber("FWD_I", 0);
-    // SmartDashboard.putNumber("FWD_D", 0);
   }
 
   /**
@@ -62,13 +73,6 @@ public class Robot extends TimedRobot {
     // and   running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("Compressor", c.enabled());
-    SmartDashboard.putNumber("c", c.getCompressorCurrent());
-    SmartDashboard.putBoolean("c2", c.getCompressorNotConnectedFault());
-    SmartDashboard.putBoolean("c3", c.getCompressorNotConnectedStickyFault());
-    SmartDashboard.putBoolean("c4", c.getCompressorShortedFault());
-    SmartDashboard.putBoolean("c5", c.getCompressorShortedStickyFault());
-    SmartDashboard.putBoolean("c6", c.getPressureSwitchValue());
   }
 
   /**
@@ -93,21 +97,13 @@ public class Robot extends TimedRobot {
   
   @Override
   public void autonomousInit() {
-    // drive = new Drive();
-    // hopper = new Hopper();
-    // launcher = new Launcher();
-
-    // CommandScheduler.getInstance().schedule(new Turn(drive, 180));
-    // CommandScheduler.getInstance().schedule(new Move(drive, 120));
-    // CommandScheduler.getInstance().schedule(new Launch(launcher));
-    // // timer.delay(2.0);	
-    // CommandScheduler.getInstance().schedule(new FeedBallz(hopper));
-    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // // schedule the autonomous command (example)
-    // if (m_autonomousCommand != null) {
-    //   m_autonomousCommand.schedule();
-    // }
+   SequentialCommandGroup auto1 = new SequentialCommandGroup(
+      (Command) new Move(drive, 120),
+      (Command) new ParallelCommandGroup(
+         (Command) new Launch(launcher),
+         (Command) new FeedBallz(hopper)),
+      (Command)new Turn(drive, 180));
+    // CommandScheduler.getInstance().schedule(auto1);
   }
 
   /**
@@ -115,6 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -123,11 +120,12 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
-    CommandScheduler.getInstance().schedule(m_robotContainer.getTeleopDrive());
+    // if (m_autonomousCommand != null) {
+    //   m_autonomousCommand.cancel();
+    // }
+    //CommandScheduler.getInstance().schedule(m_robotContainer.getTeleopDrive());
     //c.start();
+    CommandScheduler.getInstance().schedule( (Command) new ArcadeDrive(drive, RobotContainer.j));
   }
 
   /**
@@ -136,6 +134,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // c.start();
+    CommandScheduler.getInstance().run();
   }
 
   @Override

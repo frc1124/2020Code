@@ -17,9 +17,12 @@ import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Compressor;
 import java.util.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.Robot;
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -28,16 +31,19 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drive drive = new Drive();
-  private static final Joystick j = new Joystick(Constants.ARCADE_STICK); // Creates a joystick on port 1
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, j);
-  private final Intake intake = new Intake(-1);
-  private final Intake intake2 = new Intake(-.25);
-  private final Hopper hopper = new Hopper();
-  private final Hopper hopper2  =new Hopper(-.5);
-  private final Launcher launcher = new Launcher();
-  private final DiscSpinner discspinner = new DiscSpinner();
-  public final Pneumatics pneumatics = new Pneumatics(Robot.c);
+  //private final Drive drive = new Drive();
+  public static final Joystick j = new Joystick(Constants.ARCADE_STICK); // Creates a joystick on port 1
+  public static final Joystick j2 = new Joystick(Constants.COMMAND_STICK);
+  public static final Drive drive = new Drive();
+  public static final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, j);
+  public static final Intake intake = new Intake();
+  public static final Hopper hopper = new Hopper();
+  public static final Launcher launcher = new Launcher();
+  public static final DiscSpinner discspinner = new DiscSpinner();
+  public static final Pneumatics pneumatics = new Pneumatics(Robot.c);
+  
+
+
   private boolean isRetracted = true;
 
  
@@ -45,9 +51,9 @@ public class RobotContainer {
       return arcadeDrive;
   }
 
-  public static HashMap<String, Button> logitechMap;
-  public static Button getKey(String key) {
-    logitechMap = new HashMap<String, Button>();
+  public static HashMap<String, Button> logitechMap = new HashMap<String, Button>();
+
+  public static Button getKey(String key) { 
     logitechMap.put("A", new JoystickButton(j, 1));
     logitechMap.put("B", new JoystickButton(j, 2));
     logitechMap.put("X", new JoystickButton(j, 3));
@@ -78,7 +84,6 @@ public class RobotContainer {
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
     getKey("Y").whileHeld(new SuccBallz(intake));
-    getKey("RB").whileHeld(new SuccBallz(intake2));
     getKey("X").whileHeld(new FeedBallz(hopper));
     getKey("A").toggleWhenPressed(new Launch(launcher, 1), true);
   
@@ -87,10 +92,9 @@ public class RobotContainer {
     //getKey("RB").whenPressed(new RetractClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy (ps. Rohan wrote that)
-    //getKey("B").whileHeld(new SpinDisc(discspinner));
+    getKey("B").whileHeld(new SpinDisc(discspinner));
     // getKey("Back").whenPressed(new Move(drive, 132));
     //getKey("B").whenPressed(new Turn(drive, 90));
-    getKey("B").whileHeld(new FeedBallz(hopper2));
     getKey("Back").toggleWhenPressed(new Launch(launcher, -1), true);
   }
 

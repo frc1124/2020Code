@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -15,6 +15,8 @@ public class Launcher extends SubsystemBase{
     private TalonSRX launchRoller;
     // public double THROTTLE;
     private Encoder encoder;
+    private PIDController launchController;
+    private double setpoint = 30; // Desired RPM
     // private DutyCycleEncoder encoder;
     
     public Launcher(){
@@ -22,24 +24,18 @@ public class Launcher extends SubsystemBase{
         launchRoller.setNeutralMode(NeutralMode.Brake);
         encoder = new Encoder(Constants.LAUNCHER_CHANNEL_A, Constants.LAUNCHER_CHANNEL_B);
         encoder.setDistancePerPulse(8192);
-        // encoder = new DutyCycleEncoder(5);
-        //encoder.setDistancePerRotation(1);
-        // THROTTLE = 1;
+        launchController = new PIDController(Constants.LAUNCH_P, Constants.LAUNCH_I,Constants.LAUNCH_D);
+        launchController.setSetpoint(30);
     }
-    
-    // public Launcher(double throttle){
-    //     launchRoller = new TalonSRX(Constants.TOP_ROLLER);
-    //     launchRoller.setNeutralMode(NeutralMode.Brake);
-    //     encoder = new Encoder(Constants.LAUNCHER_CHANNEL_A, Constants.LAUNCHER_CHANNEL_B);
-    //     // encoder.setDistancePerPulse(8192);
-    //     // encoder = new DutyCycleEncoder(5);
-    //    // encoder.setDistancePerRotation(1);
-    //     // THROTTLE = throttle;
-    // }
 
-    public void run(double THROTTLE) {
-        launchRoller.set(ControlMode.PercentOutput, THROTTLE);
+    public void initialize() {
+      
     }
+   
+    public void run(double THROTTLE) {
+        launchRoller.set(ControlMode.PercentOutput, launchController.calculate(30, setpoint));
+    }
+
     public void stop() {
         launchRoller.set(ControlMode.PercentOutput, 0);
     }

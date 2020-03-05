@@ -18,14 +18,9 @@ public class Intake extends SubsystemBase{
         intakeRoller.setNeutralMode(NeutralMode.Brake);
         THROTTLE = .5;
     }
-
-    public Intake(double throttle){
-        intakeRoller = new VictorSPX(Constants.INTAKE_ROLLER);
-        intakeRoller.setNeutralMode(NeutralMode.Brake);
-        THROTTLE = throttle;
-    }
     
-    public void run() {
+    public void run(double throttle) {
+        this.THROTTLE = throttle;
         intakeRoller.set(ControlMode.PercentOutput, THROTTLE);
     }
     public void stop() {

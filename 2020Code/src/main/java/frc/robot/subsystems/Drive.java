@@ -42,6 +42,10 @@ public class Drive extends SubsystemBase {
 
     private PIDController fwdRPID;
     private PIDController fwdLPID;
+
+    private PIDController fwdRVPID;
+    private PIDController fwdLVPID;
+
     private PIDController rotPID;
 
     private AHRS navx;
@@ -78,6 +82,10 @@ public class Drive extends SubsystemBase {
         // pid controllers
         fwdRPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F_R);
         fwdLPID = new PIDController(Constants.FWD_P, Constants.FWD_I, Constants.FWD_D, Constants.FWD_F_L);
+        
+        fwdRVPID = new PIDController(Constants.FWD_P_V, Constants.FWD_I_V, Constants.FWD_D_V, Constants.FWD_F_R);
+        fwdLVPID = new PIDController(Constants.FWD_P_V, Constants.FWD_I_V, Constants.FWD_D_V, Constants.FWD_F_L);
+
 
         rotPID = new PIDController(Constants.ROT_P, Constants.ROT_I, Constants.ROT_D, Constants.ROT_F);
         // rotPID.setInputRange(-180, 180);
@@ -98,8 +106,6 @@ public class Drive extends SubsystemBase {
     public void arcadeDrive(double fwd, double rot) {
         drive.arcadeDrive(fwd, rot);
     }
-
-
 
     public void resetEncoders() {
       leftEncoder.reset();
@@ -141,18 +147,26 @@ public class Drive extends SubsystemBase {
       return 0;
     }
 
-    public void drive(double distance, double angle) {
-        angle -= navx.getYaw();
-        if(angle < -180) angle += 360;
+    public void drive(double fwd, double rot) {
+        // rot -= navx.getYaw() / 180;
+        // if(rot < -1) rot += 2;
+        // if(rot > 1) rot -= 2;
         
-        double avgEncoderDistance = (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+        double v = getAvgVelocity();
+        fwdLPID.setSetpoint(fwd * (5330 / 60 * Math.PI * 6));
+        fwdRPID.setSetpoint(fwd * (5330 / 60 * Math.PI * 6));
+        fwdLPID.setTolerance(5);
+        double lSpeed = fwdLVPID.calculate(leftEncoder.getRate(), fwd * (5330 / 60 * Math.PI * 6));
+        double rSpeed = fwdRVPID.calculate(rightEncoder.getRate(), fwd * (5330 / 60 * Math.PI * 6));
+        SmartDashboard.putNumber("v", v);
+        SmartDashboard.putNumber("lSpeed", lSpeed);
+        SmartDashboard.putNumber("rSpeed", rSpeed);
         arcadeDrive(
-          fwdRPID.calculate(avgEncoderDistance, distance),
-          rotPID.calculate(navx.getYaw(), angle)
+          (lSpeed + rSpeed) / -2,
+          rot
         );
     }
     public boolean move(double distance) {
-      
       // returns isFinished
       final double T = 0.1;
       final double tolerance = 0.1;

@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
+import frc.robot.Robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -38,6 +39,7 @@ public class ArcadeDrive extends CommandBase {
 
   public ArcadeDrive(Drive drive, Joystick j) {
     this.drive = drive;
+
     this.j = j;
     navx = drive.getNavxInstance(); 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -56,7 +58,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
 
-    drive.arcadeDrive(j.getY() * THROTTLE, j.getX()* -1*THROTTLE);
+    drive.drive(j.getY(), -1*j.getX());
     // drive.arcadeDrive(1,0);
     // double angle = j.getX() - navx.getYaw()/180.0;
     //if (angle < -1) angle++;

@@ -10,44 +10,46 @@ public class Launch extends CommandBase{
 
   private Launcher launcher;
   private double throttle;
-    public Launch(Launcher l) {
-        launcher = l;
-        // Use addRequirements() here to declare launcher dependencies.
-        addRequirements(launcher);
-      }
 
-    public Launch(Launcher l, double throttle) {
+  public Launch(Launcher l) {
       launcher = l;
-      this.throttle = throttle;
+      throttle = 1;
       // Use addRequirements() here to declare launcher dependencies.
       addRequirements(launcher);
-      
     }
 
+  public Launch(Launcher l, double throttle) {
+    launcher = l;
+    this.throttle = throttle;
+    // Use addRequirements() here to declare launcher dependencies.
+    addRequirements(launcher);
     
-      // Called when the command is initially scheduled.
-      @Override
-      public void initialize() {
-        
-      }
-    
-      // Called every time the scheduler runs while the command is scheduled.
-      @Override
-      public void execute() {
-          launcher.run(throttle);
-      }
-    
-      // Called once the command ends or is interrupted.
-      @Override
-      public void end(boolean interrupted) {
-        launcher.stop();
-      }
-    
-      // Returns true when the command should end.
-      @Override
-      public boolean isFinished() {
-        return false;
-      }
+  }
+
+  
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+      
+    }
+  
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        launcher.run(throttle);
+    }
+  
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+      launcher.stop();
+    }
+  
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+      return false;
+    }
 
 }
 

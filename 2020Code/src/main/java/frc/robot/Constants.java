@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import java.util.*;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -25,6 +23,7 @@ public final class Constants {
     public static final int LEFT_SLAVE = 0;
 
     public static final int ARCADE_STICK = 0;
+    public static final int COMMAND_STICK = 1;
     
     private final double maxCIMVelocity = 5330/60;
     private final double gearRatio = 10.71;
@@ -33,19 +32,25 @@ public final class Constants {
     private final double vMax = 12;
     private final double k = vMax/velocityMax;
 
-    public static final double FWD_P = 0.0125;
+    public static final double FWD_P = .0125;
     public static final double FWD_I = 0;
     public static final double FWD_D = 0;
+
+    public static final double FWD_P_V = .0005;
+    public static final double FWD_I_V = 0;
+    public static final double FWD_D_V = 0;
+
     public static final double FWD_F_R = .0881;
     public static final double FWD_F_L = .0862;
-
-
-
 
     public static final double ROT_P = .01;
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
     public static final double ROT_F = .05;
+
+    public static final double LAUNCH_P = .01;
+    public static final double LAUNCH_I = 0;
+    public static final double LAUNCH_D = 0;
 
     public static final int TOP_ROLLER = 4;
 

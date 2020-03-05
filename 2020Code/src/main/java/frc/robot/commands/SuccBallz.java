@@ -8,35 +8,43 @@ import frc.robot.Constants;;
 
 public class SuccBallz extends CommandBase{
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    public Intake intake; 
-    
+    private Intake intake; 
+    private double throttle;
+
     public SuccBallz(Intake Intake) {
         this.intake = Intake;
+        this.throttle = .75;
         // Use addRequirements() here to declare launcher dependencies.
         addRequirements(intake);
-      }
+    }
     
-      // Called when the command is initially scheduled.
-      @Override
-      public void initialize() {
-      }
-    
-      // Called every time the scheduler runs while the command is scheduled.
-      @Override
-      public void execute() {
-          // if (RobotContainer.getKey("Y"));
-            intake.run();
-      }
-    
-      // Called once the command ends or is interrupted.
-      @Override
-      public void end(boolean interrupted) {
-        intake.stop();
-      }
-    
-      // Returns true when the command should end.
-      @Override
-      public boolean isFinished() {
-        return false;
-      }
+    public SuccBallz(Intake Intake, double throttle) {
+      this.intake = Intake;
+      this.throttle = throttle;
+      // Use addRequirements() here to declare launcher dependencies.
+      addRequirements(intake);
+    }
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
+  
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+          intake.run(throttle);
+    }
+  
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+      intake.stop();
+    }
+  
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+      return false;
+    }
 }

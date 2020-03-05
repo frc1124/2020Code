@@ -10,9 +10,17 @@ public class FeedBallz extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private Hopper hopper;
+    private double throttle;
 
     public FeedBallz(Hopper h) {
+      this.hopper = h;
+      this.throttle = .5;
+      addRequirements(hopper);
+    }
+
+    public FeedBallz(Hopper h, double throttle) {
         this.hopper = h;
+        this.throttle = throttle;
         addRequirements(hopper);
     }
 
@@ -23,7 +31,7 @@ public class FeedBallz extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        hopper.run();
+      hopper.run(throttle);
     }
   
     // Called once the command ends or is interrupted.

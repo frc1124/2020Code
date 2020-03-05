@@ -25,14 +25,6 @@ public class RetractClimb extends CommandBase{
     public void execute() {
         //pneumatics.extendClimb();
         pneumatics.retractClimb();
-        // if (!(this.isExtended)){
-        //     pneumatics.extendClimb();
-        //     isExtended = true;
-        // } else if (this.isExtended){
-        //     pneumatics.retractClimb();
-        //     isExtended = false;
-        // }  
-        //Hook needs to hatch onto the bar
     }
 
     // Called once the command ends or is interrupted.
