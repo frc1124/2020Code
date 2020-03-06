@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase{
     }
     
     public void run(double throttle) {
-        this.THROTTLE = throttle;
+        this.THROTTLE = -throttle;
         intakeRoller.set(ControlMode.PercentOutput, THROTTLE);
     }
     public void stop() {

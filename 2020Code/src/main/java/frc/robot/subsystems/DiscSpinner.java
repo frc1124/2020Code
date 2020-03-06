@@ -83,12 +83,11 @@ public class DiscSpinner extends SubsystemBase{
 
 
     public void run() {
-        // if (Distance == 0){
-        //     spinner.set(ControlMode.PercentOutput,THROTTLE);
-        // } else if (discEncoder.getDistance() <= distance){
-        //     spinner.set(ControlMode.PercentOutput,THROTTLE);
-        // }
-        
+        if (discEncoder.getDistance() <= 314 ){
+            spinner.set(ControlMode.PercentOutput,THROTTLE);
+        } else {
+            this.stop();
+        }
     }
 
     public void stop() {

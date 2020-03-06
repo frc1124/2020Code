@@ -34,23 +34,24 @@ public final class Constants {
 
     public static final double FWD_P = .0125;
     public static final double FWD_I = 0;
-    public static final double FWD_D = 0;
+    public static final double FWD_D = .005;
 
     public static final double FWD_P_V = .0005;
     public static final double FWD_I_V = 0;
     public static final double FWD_D_V = 0;
 
-    public static final double FWD_F_R = .0881;
-    public static final double FWD_F_L = .0862;
+    public static final double FWD_F_R = .0984;//.0881
+    public static final double FWD_F_L = .0965;//.0862
 
     public static final double ROT_P = .01;
     public static final double ROT_I = 0;
     public static final double ROT_D = 0;
     public static final double ROT_F = .05;
 
-    public static final double LAUNCH_P = .01;
+    public static final double LAUNCH_P = 0.02;
     public static final double LAUNCH_I = 0;
     public static final double LAUNCH_D = 0;
+    public static final double LAUNCH_F = 1;
 
     public static final int TOP_ROLLER = 4;
 
@@ -71,6 +72,6 @@ public final class Constants {
     public static final int CLIMB_A = 2;
     public static final int CLIMB_B = 3;    
     
-    public static final int LIGHT = 0;
+    public static final int LIGHT = 7;
 	
 }

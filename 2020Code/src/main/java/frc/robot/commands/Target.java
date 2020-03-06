@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Radar;
+
 
 /**
  * An example command that uses an example subsystem.
@@ -23,14 +26,14 @@ public class Target extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean ranOnce = false;
   private final Drive drive;
-  private final int imageWidth = 0;
-  private final int fov = 120;
+  private final int imageWidth = 160;
+  private final int fov = 64;
 
   private double angle;
   private double targetDistance = 0;
   private double centerX;
   private Solenoid lights;
-
+  private Radar radar;
   /**
    * Creates a new Target.
    *
@@ -43,19 +46,28 @@ public class Target extends CommandBase {
     this.lights = new Solenoid(Constants.LIGHT);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
+    this.radar = new Radar();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    lights.set(true);
     double[] defaultValue = new double[0];
     double[] centers;
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("GRIP/greenReflective");
     centers = table.getEntry("centerX").getDoubleArray(defaultValue);
-    centerX = centers[0];
-
+    
+    if (centers.length != 0){
+      centerX = centers[0];
+    } else {
+      centerX = 80; 
+    }
+  
+    SmartDashboard.putNumber("cx", centerX);
     angle = (fov * centerX) / imageWidth;
+    SmartDashboard.putNumber("Radar Distance", radar.getInches());
   }
 
 
@@ -66,6 +78,7 @@ public class Target extends CommandBase {
     CommandScheduler.getInstance().schedule(new Turn(drive, angle));
     CommandScheduler.getInstance().schedule(new Move(drive, drive.getDistance() - targetDistance));
     CommandScheduler.getInstance().schedule(new Turn(drive, -angle));
+    // SmartDashboard.putString("", );
     ranOnce = true;
   }
 

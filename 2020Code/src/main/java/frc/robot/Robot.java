@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.commands.*;
@@ -37,6 +39,9 @@ public class Robot extends TimedRobot {
   public static Hopper hopper;
   public static Intake intake;
   public static DiscSpinner discspinner;
+  public static UsbCamera camera;
+  public static MjpegServer streamServer;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -57,6 +62,9 @@ public class Robot extends TimedRobot {
     timer = new Timer();
     pneumatics.init();
     c.start();
+    camera = new UsbCamera("Targeting Camera", 0);
+    streamServer = new MjpegServer("Target Camera Stream", 1181);
+    streamServer.setSource(camera);
   }
 
   /**
@@ -97,13 +105,26 @@ public class Robot extends TimedRobot {
   
   @Override
   public void autonomousInit() {
+
+    //test code --> change it to auto1 (see Krish)
    SequentialCommandGroup auto1 = new SequentialCommandGroup(
       (Command) new Move(drive, 120),
+      //(Command)new Turn(drive, 180),
       (Command) new ParallelCommandGroup(
          (Command) new Launch(launcher),
-         (Command) new FeedBallz(hopper)),
-      (Command)new Turn(drive, 180));
-    // CommandScheduler.getInstance().schedule(auto1);
+         (Command) new FeedBallz(hopper)));
+      
+    CommandScheduler.getInstance().schedule(auto1);
+
+    SequentialCommandGroup auto2 = new SequentialCommandGroup(
+      (Command) new Turn(drive, 29),
+      (Command) new Move(drive, 18),
+      (Command) new Launch(launcher),
+      (Command) new FeedBallz(hopper),
+      (Command) new Move(drive, -18),
+      (Command) new Turn(drive, -29),
+      (Command) new Move(drive, -40)
+    );
   }
 
   /**
