@@ -6,7 +6,7 @@ public class Radar {
     private double distance;
     private SerialPort sensor;
     public Radar() {
-        sensor = new SerialPort(1200, SerialPort.Port.kOnboard);
+        //sensor = new SerialPort(1200, SerialPort.Port.kOnboard);
     }
 
     public double getLastRead() {

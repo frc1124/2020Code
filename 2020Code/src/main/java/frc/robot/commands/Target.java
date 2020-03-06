@@ -17,6 +17,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Radar;
+import frc.robot.RobotContainer;
 
 
 /**
@@ -27,7 +28,7 @@ public class Target extends CommandBase {
   private boolean ranOnce = false;
   private final Drive drive;
   private final int imageWidth = 160;
-  private final int fov = 64;
+  private final int fov = 54;
 
   private double angle;
   private double targetDistance = 0;
@@ -74,18 +75,20 @@ public class Target extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    lights.set(true);
+    SmartDashboard.putString("Log", "Everything started");
     CommandScheduler.getInstance().schedule(new Turn(drive, angle));
     CommandScheduler.getInstance().schedule(new Move(drive, drive.getDistance() - targetDistance));
     CommandScheduler.getInstance().schedule(new Turn(drive, -angle));
-    // SmartDashboard.putString("", );
+    CommandScheduler.getInstance().schedule(new ArcadeDrive(drive, RobotContainer.j));
+    SmartDashboard.putString("Log", "Everything ran");
+
     ranOnce = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    lights.set(false);
+    // lights.set(false);
   }
 
   // Returns true when the command should end.

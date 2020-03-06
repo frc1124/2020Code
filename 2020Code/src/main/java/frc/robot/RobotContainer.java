@@ -84,19 +84,21 @@ public class RobotContainer {
     
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
-    getKey("Y").whileHeld(new SuccBallz(intake));
+    getKey("Y").whileHeld(new SuccBallz(intake, .4));
     getKey("X").whileHeld(new FeedBallz(hopper, .4));
     getKey("A").toggleWhenPressed(new Launch(launcher, 1), true);
-    getKey("LB").whileHeld(new SpinDisc(discspinner));
+   // getKey("LB").whileHeld(new SpinDisc(discspinner));
     //getKey("LB").whileHeld(new SpinDisc(discspinner));
-    //getKey("LB").whenPressed(new ExtendClimb(pneumatics));
-    //getKey("RB").whenPressed(new RetractClimb(pneumatics));
+    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+    getKey("RB").whenPressed(new RetractClimb(pneumatics));
     //getKey("RB").whileHeld(new );
     //rohan is sexy (ps. Rohan wrote that)
     getKey("B").whileHeld(new Target(drive));
     // getKey("Back").whenPressed(new Move(drive, 132));
     //getKey("B").whenPressed(new Turn(drive, 90));
     getKey("Back").toggleWhenPressed(new Launch(launcher, -1), true);
+    //getKey("B").whenPressed(new LowerIntake(pneumatics));
+    
   }
 
 

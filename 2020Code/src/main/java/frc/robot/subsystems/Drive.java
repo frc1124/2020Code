@@ -164,7 +164,7 @@ public class Drive extends SubsystemBase {
         
         arcadeDrive(
           (lSpeed + rSpeed) / -2,
-          rot
+          -1*rot
         );
     }
     public boolean move(double distance) {

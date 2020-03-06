@@ -15,8 +15,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.cscore.UsbCamera;
+
+import javax.annotation.ParametersAreNullableByDefault;
+
 import edu.wpi.cscore.MjpegServer;
-import edu.wpi.first.wpilibj.Timer;
+  import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -113,10 +116,12 @@ public class Robot extends TimedRobot {
       (Command) new ParallelCommandGroup(
          (Command) new Launch(launcher),
          (Command) new FeedBallz(hopper)));
-      
-    CommandScheduler.getInstance().schedule(auto1);
 
     SequentialCommandGroup auto2 = new SequentialCommandGroup(
+      new ParallelCommandGroup(
+        (Command) new Launch(launcher, 5),
+        (Command) new FeedBallz(hopper,5)
+      ),
       (Command) new Turn(drive, 29),
       (Command) new Move(drive, 18),
       (Command) new Launch(launcher),
@@ -125,6 +130,8 @@ public class Robot extends TimedRobot {
       (Command) new Turn(drive, -29),
       (Command) new Move(drive, -40)
     );
+
+    CommandScheduler.getInstance().schedule(auto2);
   }
 
   /**
