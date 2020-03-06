@@ -3,13 +3,13 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Radar {
-    private int distance;
+    private double distance;
     private SerialPort sensor;
     public Radar() {
         sensor = new SerialPort(1200, SerialPort.Port.kOnboard);
     }
 
-    public int getLastRead() {
+    public double getLastRead() {
         return distance;
     }
 
@@ -17,11 +17,13 @@ public class Radar {
         return distance / 25.4;
     }
 
-    public int read() {
+    public double read() {
         // reading in mm
-        String rawOutput = sensor.readString(6);
+        String rawOutput = sensor.readString(6*8);
         if(rawOutput.charAt(0) == 'R') {
-            distance = Integer.parseInt(rawOutput.substring(1, 5));
+            for(int i = 1; i < 5; i++) {
+                distance += Integer.parseInt(rawOutput.substring(8, (i+1) * 8),2) * (Math.pow(10,i));
+            }
         }
         sensor.flush();
         
