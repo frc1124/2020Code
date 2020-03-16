@@ -42,10 +42,12 @@ public class RobotContainer {
   public static final Launcher launcher = new Launcher();
   public static final DiscSpinner discspinner = new DiscSpinner();
   public static final Pneumatics pneumatics = new Pneumatics(Robot.c);
+  public Button[] joystick2 = new JoystickButton[8];
   
 
 
   private boolean isRetracted = true;
+
 
  
   public Command getTeleopDrive() {
@@ -53,6 +55,9 @@ public class RobotContainer {
   }
 
   public static HashMap<String, Button> logitechMap = new HashMap<String, Button>();
+
+
+  
 
   public static Button getKey(String key) { 
     logitechMap.put("A", new JoystickButton(j, 1));
@@ -63,15 +68,23 @@ public class RobotContainer {
     logitechMap.put("RB", new JoystickButton(j, 6));
     logitechMap.put("Back", new JoystickButton(j, 7));
     logitechMap.put("A", new JoystickButton(j, 1));
+    logitechMap.put("Start", new JoystickButton(j, 8));
     return logitechMap.get(key);
   }
+  
+
   
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
+    for (int i = 1; i <= 8; i++){
+      joystick2[i-1] = new JoystickButton(j2, i);
+    }
     configureButtonBindings();
+  
+
   }
 
   /**
@@ -84,20 +97,35 @@ public class RobotContainer {
     
     // JAY: this is how you do it
     // button1.whenPressed(new ExampleCommand());
-    getKey("Y").whileHeld(new SuccBallz(intake, .4));
-    getKey("X").whileHeld(new FeedBallz(hopper, .4));
-    getKey("A").toggleWhenPressed(new Launch(launcher, 1), true);
-   // getKey("LB").whileHeld(new SpinDisc(discspinner));
-    //getKey("LB").whileHeld(new SpinDisc(discspinner));
-    getKey("LB").whenPressed(new ExtendClimb(pneumatics));
-    getKey("RB").whenPressed(new RetractClimb(pneumatics));
-    //getKey("RB").whileHeld(new );
-    //rohan is sexy (ps. Rohan wrote that)
-    getKey("B").whileHeld(new Target(drive));
-    // getKey("Back").whenPressed(new Move(drive, 132));
-    //getKey("B").whenPressed(new Turn(drive, 90));
-    getKey("Back").toggleWhenPressed(new Launch(launcher, -1), true);
-    //getKey("B").whenPressed(new LowerIntake(pneumatics));
+  //   getKey("Y").whileHeld(new SuccBallz(intake));
+  //   getKey("X").whileHeld(new FeedBallz(hopper));
+  //   getKey("A").toggleWhenPressed(new Launch(launcher), true);
+  //  // getKey("LB").whileHeld(new SpinDisc(discspinner));
+  //   //getKey("LB").whileHeld(new SpinDisc(discspinner));
+  //   getKey("LB").whenPressed(new ExtendClimb(pneumatics));
+  //   getKey("RB").whenPressed(new RetractClimb(pneumatics));
+  //   //getKey("RB").whileHeld(new );
+  //   //rohan is sexy (ps. Rohan wrote that)
+  //   getKey("B").whileHeld(new Target(drive));
+  //   // getKey("Back").whenPressed(new Move(drive, 132));
+  //   //getKey("B").whenPressed(new Turn(drive, 90));
+  //   getKey("Back").toggleWhenPressed(new Launch(launcher), true);
+  //   //getKey("B").whenPressed(new LowerIntake(pneumatics));
+
+      getKey("Y").whenPressed(new ExtendClimb(pneumatics));
+      getKey("A").whenPressed(new RetractClimb(pneumatics));
+      getKey("B").whenPressed(new Turn(drive, 179));
+      getKey("X").whenPressed(new Target(drive));
+      joystick2[7].whileHeld(new Launch(launcher));
+      joystick2[6].whileHeld(new Launch(launcher, -1, true));
+      joystick2[5].whileHeld(new SuccBallz(intake));
+      joystick2[4].whileHeld(new SuccBallz(intake, -.6));
+      joystick2[1].whileHeld(new FeedBallz(hopper));
+      joystick2[3].whileHeld(new FeedBallz(hopper, -.4, true));
+      joystick2[2].whileHeld(new SuccBallz(intake, .25));
+      getKey("Back").whenPressed(new LowerIntake(pneumatics));
+      getKey("Start").whenPressed(new RaiseIntake(pneumatics));
+      
     
   }
 

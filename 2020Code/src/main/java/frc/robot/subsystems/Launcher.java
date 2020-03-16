@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.fasterxml.jackson.databind.deser.std.ThrowableDeserializer;
 
 public class Launcher extends SubsystemBase{
     private TalonSRX launchRoller;
@@ -39,10 +40,15 @@ public class Launcher extends SubsystemBase{
       
     }
    
-    public void run(double THROTTLE) {
+    public void run() {
         launchRoller.set(ControlMode.Velocity, 5530 * 8096 / 600);
         // launchRoller.set(ControlMode.PercentOutput, launchController.calculate(encoder.getRate(), setpoint));
     }
+    public void set(double THROTTLE) {
+        launchRoller.set(ControlMode.PercentOutput, THROTTLE);
+        // launchRoller.set(ControlMode.PercentOutput, launchController.calculate(encoder.getRate(), setpoint));
+    }
+
 
     public void stop() {
         launchRoller.set(ControlMode.PercentOutput, 0);
@@ -57,8 +63,8 @@ public class Launcher extends SubsystemBase{
     
     @Override 
     public void periodic(){
-        SmartDashboard.putNumber("Launcher Speed: ", speed());
-        SmartDashboard.putNumber("Launcher voltage", launchRoller.getOutputCurrent());
-        SmartDashboard.putNumber("Launcher Encoder Raw", encoder.get());
+        // SmartDashboard.putNumber("Launcher Speed: ", speed());
+        // SmartDashboard.putNumber("Launcher voltage", launchRoller.getOutputCurrent());
+        // SmartDashboard.putNumber("Launcher Encoder Raw", encoder.get());
     }
 }

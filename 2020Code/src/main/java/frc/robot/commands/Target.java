@@ -66,21 +66,21 @@ public class Target extends CommandBase {
       centerX = 80; 
     }
   
-    SmartDashboard.putNumber("cx", centerX);
-    angle = (fov * centerX) / imageWidth;
-    SmartDashboard.putNumber("Radar Distance", radar.getInches());
+    //SmartDashboard.putNumber("cx", centerX);
+    angle = (fov * (centerX - imageWidth/2)) / imageWidth;
+    //SmartDashboard.putNumber("Radar Distance", radar.getInches());
   }
 
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("Log", "Everything started");
+    //SmartDashboard.putString("Log", "Everything started");
     CommandScheduler.getInstance().schedule(new Turn(drive, angle));
     CommandScheduler.getInstance().schedule(new Move(drive, drive.getDistance() - targetDistance));
     CommandScheduler.getInstance().schedule(new Turn(drive, -angle));
     CommandScheduler.getInstance().schedule(new ArcadeDrive(drive, RobotContainer.j));
-    SmartDashboard.putString("Log", "Everything ran");
+    //SmartDashboard.putString("Log", "Everything ran");
 
     ranOnce = true;
   }

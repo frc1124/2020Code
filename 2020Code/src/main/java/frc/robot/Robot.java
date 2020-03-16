@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.cscore.UsbCamera;
 
 import javax.annotation.ParametersAreNullableByDefault;
@@ -66,8 +67,11 @@ public class Robot extends TimedRobot {
     pneumatics.init();
     c.start();
     camera = new UsbCamera("Targeting Camera", 0);
+    camera.setBrightness(12);
     streamServer = new MjpegServer("Target Camera Stream", 1181);
     streamServer.setSource(camera);
+
+    System.out.println(":afbefheshf" + (new Launch(launcher)).getInitTime());
   }
 
   /**
@@ -108,30 +112,39 @@ public class Robot extends TimedRobot {
   
   @Override
   public void autonomousInit() {
-
+    timer.start();
     //test code --> change it to auto1 (see Krish)
-   SequentialCommandGroup auto1 = new SequentialCommandGroup(
-      (Command) new Move(drive, 120),
-      //(Command)new Turn(drive, 180),
-      (Command) new ParallelCommandGroup(
-         (Command) new Launch(launcher),
-         (Command) new FeedBallz(hopper)));
 
+     ParallelCommandGroup autoShoot = new ParallelCommandGroup(
+        (Command) new Launch(launcher, 6),
+        new SequentialCommandGroup(
+          (Command) new WaitCommand(3),
+          (Command) new FeedBallz(hopper, 5)
+        )
+         );
+
+    SequentialCommandGroup auto1 = new SequentialCommandGroup(
+      (Command) new WaitCommand(6),
+      (Command) new Move(drive, 40));
+    // (Command)new Turn(drive, 180),);
+    //(Command) new Move(drive, 40));
     SequentialCommandGroup auto2 = new SequentialCommandGroup(
-      new ParallelCommandGroup(
-        (Command) new Launch(launcher, 5),
-        (Command) new FeedBallz(hopper,5)
-      ),
-      (Command) new Turn(drive, 29),
+      // new ParallelCommandGroup(
+      //   (Command) new Launch(launcher),
+      //   (Command) new FeedBallz(hopper)
+      // ),
+      //(Command) new Turn(drive, 29)
       (Command) new Move(drive, 18),
-      (Command) new Launch(launcher),
-      (Command) new FeedBallz(hopper),
-      (Command) new Move(drive, -18),
-      (Command) new Turn(drive, -29),
-      (Command) new Move(drive, -40)
+      (Command) new Launch(launcher, 3),
+      (Command) new FeedBallz(hopper)
+      // (Command) new Move(drive, -18),
+      // (Command) new Turn(drive, -29),
+      // (Command) new Move(drive, -40)
     );
 
-    CommandScheduler.getInstance().schedule(auto2);
+    CommandScheduler.getInstance().schedule(autoShoot);
+    CommandScheduler.getInstance().schedule(auto1);
+
   }
 
   /**

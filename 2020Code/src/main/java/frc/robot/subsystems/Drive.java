@@ -130,16 +130,16 @@ public class Drive extends SubsystemBase {
         // This method will be called once per scheduler run
         // 28:50 ratio
         // SmartDashboard.putNumber("Radar Reading", radar.read());F
-        SmartDashboard.putNumber("L Encoder D", leftEncoder.getDistance());
-        SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
-        SmartDashboard.putNumber("L Encoder R", leftEncoder.getRaw());
-        SmartDashboard.putNumber("R Encoder R", rightEncoder.getRaw());
-        SmartDashboard.putNumber("Left Velocity", leftEncoder.getRate());
-        SmartDashboard.putNumber("Right Velocity", rightEncoder.getRate());
-        SmartDashboard.putNumber("Average Distance", this.getAvgDistance());
-        SmartDashboard.putNumber("Angle", navx.getYaw());
+        // SmartDashboard.putNumber("L Encoder D", leftEncoder.getDistance());
+        // SmartDashboard.putNumber("R Encoder D", rightEncoder.getDistance());
+        // SmartDashboard.putNumber("L Encoder R", leftEncoder.getRaw());
+        // SmartDashboard.putNumber("R Encoder R", rightEncoder.getRaw());
+        // SmartDashboard.putNumber("Left Velocity", leftEncoder.getRate());
+        // SmartDashboard.putNumber("Right Velocity", rightEncoder.getRate());
+        // SmartDashboard.putNumber("Average Distance", this.getAvgDistance());
+        // SmartDashboard.putNumber("Angle", navx.getYaw());
         double rot = rotPID.calculate(navx.getYaw(), 180);
-        SmartDashboard.putNumber("Rot", rot);
+        // SmartDashboard.putNumber("Rot", rot);
     }
 
     public double getDistance() {
@@ -158,7 +158,7 @@ public class Drive extends SubsystemBase {
         fwdLPID.setTolerance(5);
         double lSpeed = fwdLVPID.calculate(leftEncoder.getRate(), fwd * (5330 / 60 * Math.PI * 6));
         double rSpeed = fwdRVPID.calculate(rightEncoder.getRate(), fwd * (5330 / 60 * Math.PI * 6));
-        SmartDashboard.putNumber("v", v);
+        // SmartDashboard.putNumber("v", v);
         SmartDashboard.putNumber("lSpeed", lSpeed);
         SmartDashboard.putNumber("rSpeed", rSpeed);
         
@@ -172,6 +172,7 @@ public class Drive extends SubsystemBase {
       final double T = 0.1;
       final double tolerance = 0.1;
       fwdRPID.setSetpoint(distance);
+      fwdLPID.setSetpoint(distance);
       double s = fwdRPID.calculate(rightEncoder.getDistance(), distance);
       double l = fwdLPID.calculate(leftEncoder.getDistance(), distance);
       if( Math.abs(s) > tolerance ) {

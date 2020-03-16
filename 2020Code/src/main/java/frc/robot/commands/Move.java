@@ -8,6 +8,8 @@
 
 package frc.robot.commands;
 
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -33,7 +35,7 @@ public class Move extends CommandBase {
   private boolean isFinished = false;
   private double lSpeed = 0;
   private double rSpeed = 0;
-  private final double TOLERANCE = .5;
+  private final double TOLERANCE = 4;
  
  
 
@@ -73,8 +75,14 @@ public class Move extends CommandBase {
   public void execute() {
     lSpeed = fwdLPID.calculate(drive.leftEncoder.getDistance(), distance+initialDistance);
     rSpeed = fwdRPID.calculate(drive.rightEncoder.getDistance(), distance+initialDistance);
+    
+    if (lSpeed < .11 || rSpeed < .11){
+      lSpeed = .11;
+      rSpeed = .11;
+    }
     drive.leftMaster.set(lSpeed);
     drive.rightMaster.set(rSpeed * -1);
+
     // MathUtil.clamp(lSpeed, -THROTTLE, THROTTLE,0);
     // MathUtil.clamp(rSpeed , -THROTTLE, THROTTLE,0);
   }
@@ -83,13 +91,18 @@ public class Move extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
+    System.out.println("Finished");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println(drive.leftMaster.getOutputCurrent());
+    System.out.println(drive.rightMaster.getOutputCurrent());
+
     return 
     (Math.abs(drive.leftEncoder.getDistance() - (distance + initialDistance)) <= TOLERANCE) && 
     (Math.abs(drive.rightEncoder.getDistance() - (distance + initialDistance)) <= TOLERANCE);
+
   }
 }

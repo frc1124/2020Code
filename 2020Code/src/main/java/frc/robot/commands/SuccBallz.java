@@ -13,7 +13,7 @@ public class SuccBallz extends CommandBase{
 
     public SuccBallz(Intake Intake) {
         this.intake = Intake;
-        this.throttle = .75;
+        this.throttle = .6;
         // Use addRequirements() here to declare launcher dependencies.
         addRequirements(intake);
     }
